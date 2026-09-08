@@ -2,7 +2,7 @@
   "use strict";
 
   const root = document.getElementById("app");
-  const storageKey = "steadyPlannerPortfolioDataV2";
+  const storageKey = "steadyPlannerPortfolioDataV3";
   window.DEFAULT_PORTFOLIO_DATA = JSON.parse(JSON.stringify(window.PORTFOLIO_DATA));
 
   try {
