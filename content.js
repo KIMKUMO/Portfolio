@@ -45,31 +45,33 @@ window.PORTFOLIO_DATA = {
       location: "의정부시, 경기도",
       military: "군필 병장 만기전역 (2020.11 ~ 2022.05)"
     },
-    items: [
+    groups: [
       {
-        label: "CAREER 01",
-        title: "세븐일레븐 편의점",
-        description: "기간: 2019.01 ~ 2020.09"
+        key: "career",
+        label: "경력",
+        eyebrow: "CAREER",
+        items: [
+          { title: "세븐일레븐 편의점", meta: "2019.01 ~ 2020.09", description: "담당 업무와 경험을 입력해 주세요." },
+          { title: "현대백화점 차량통제", meta: "2022.05 ~ 2022.10", description: "담당 업무와 경험을 입력해 주세요." },
+          { title: "세븐일레븐 편의점", meta: "2023.01 ~ 현재", description: "담당 업무와 경험을 입력해 주세요." },
+          { title: "서정대학교 학과실", meta: "2024.06 ~ 2025.02", description: "담당 업무와 경험을 입력해 주세요." }
+        ]
       },
       {
-        label: "CAREER 02",
-        title: "현대백화점 차량통제",
-        description: "기간: 2022.05 ~ 2022.10"
+        key: "certificate",
+        label: "자격증",
+        eyebrow: "CERTIFICATES",
+        items: [
+          { title: "자격증 이름", meta: "발급 기관 · 취득일", description: "자격증과 관련된 역량을 입력해 주세요." }
+        ]
       },
       {
-        label: "CAREER 03",
-        title: "세븐일레븐 편의점",
-        description: "기간: 2023.01 ~ 현재"
-      },
-      {
-        label: "CAREER 04",
-        title: "서정대학교 학과실",
-        description: "기간: 2024.06 ~ 2025.02"
-      },
-      {
-        label: "SKILLS",
-        title: "기획 역량과 도구",
-        description: "시스템 기획 · 콘텐츠 기획 · 데이터 분석 · 사용 도구를 입력해 주세요."
+        key: "skill",
+        label: "기술",
+        eyebrow: "SKILLS",
+        items: [
+          { title: "기획 역량과 도구", meta: "숙련도 또는 사용 기간", description: "시스템 기획 · 콘텐츠 기획 · 데이터 분석 · 사용 도구를 입력해 주세요." }
+        ]
       }
     ]
   },

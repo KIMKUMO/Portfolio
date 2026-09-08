@@ -1,12 +1,15 @@
 (function () {
   "use strict";
 
-  const data = window.PORTFOLIO_DATA;
   const root = document.getElementById("app");
+  const storageKey = "steadyPlannerPortfolioDataV2";
+  window.DEFAULT_PORTFOLIO_DATA = JSON.parse(JSON.stringify(window.PORTFOLIO_DATA));
 
-  if (!data || !root) {
-    document.body.innerHTML = '<p class="load-error">content.js 파일을 확인해 주세요.</p>';
-    return;
+  try {
+    const savedData = localStorage.getItem(storageKey);
+    if (savedData) window.PORTFOLIO_DATA = JSON.parse(savedData);
+  } catch (error) {
+    console.warn("저장된 포트폴리오 데이터를 불러오지 못했습니다.", error);
   }
 
   const escapeHTML = (value) => String(value ?? "")
@@ -43,9 +46,16 @@
       </${tag}>`;
   };
 
-  document.title = data.site.title;
-  const metaDescription = document.querySelector('meta[name="description"]');
-  if (metaDescription) metaDescription.content = data.site.description;
+  const renderPortfolio = () => {
+    const data = window.PORTFOLIO_DATA;
+    if (!data || !root) {
+      document.body.innerHTML = '<p class="load-error">content.js 파일을 확인해 주세요.</p>';
+      return;
+    }
+
+    document.title = data.site.title;
+    const metaDescription = document.querySelector('meta[name="description"]');
+    if (metaDescription) metaDescription.content = data.site.description;
 
   root.innerHTML = `
     <main id="main">
@@ -105,12 +115,18 @@
                 <div><dt>${escapeHTML(contactLabels[key] || key.toUpperCase())}</dt><dd>${escapeHTML(value)}</dd></div>`).join("")}
             </dl>
           </article>
-          <div class="resume-list">
-            ${data.resume.items.map((item, index) => `
-              <article class="resume-row">
-                <span class="row-index">${pad(index)}</span>
-                <div><p class="mini-label">${escapeHTML(item.label)}</p><h3>${escapeHTML(item.title)}</h3><p>${escapeHTML(item.description)}</p></div>
-              </article>`).join("")}
+          <div class="resume-groups">
+            ${data.resume.groups.map((group) => `
+              <section class="resume-category" aria-labelledby="resume-${escapeHTML(group.key)}">
+                <header><p class="mini-label">${escapeHTML(group.eyebrow)}</p><h3 id="resume-${escapeHTML(group.key)}">${escapeHTML(group.label)}</h3><span>${String(group.items.length).padStart(2, "0")}</span></header>
+                <div class="resume-list">
+                  ${group.items.map((item, index) => `
+                    <article class="resume-row">
+                      <span class="row-index">${pad(index)}</span>
+                      <div><p class="resume-meta">${escapeHTML(item.meta)}</p><h4>${escapeHTML(item.title)}</h4><p>${escapeHTML(item.description)}</p></div>
+                    </article>`).join("")}
+                </div>
+              </section>`).join("")}
           </div>
         </div>
       </section>
@@ -170,4 +186,10 @@
     const item = data.portfolio.items[Number(element.dataset.portfolioImage)];
     if (item && item.image) element.style.backgroundImage = `linear-gradient(rgba(0,0,0,.24),rgba(0,0,0,.58)),url("${item.image}")`;
   });
+
+  };
+
+  window.PORTFOLIO_STORAGE_KEY = storageKey;
+  window.renderPortfolio = renderPortfolio;
+  renderPortfolio();
 })();
