@@ -142,7 +142,7 @@
               <div class="card-top"><span class="status-badge ${escapeHTML(item.tone)}">${escapeHTML(item.badge)}</span><span>${pad(index)} / ${String(data.projects.items.length).padStart(2, "0")}</span></div>
               <div class="project-title"><p>${escapeHTML(item.role)}</p><h3>${escapeHTML(item.title)}</h3></div>
               <p>${escapeHTML(item.description)}</p>
-              <div class="project-result"><span>KEY EXPERIENCE</span><p>${escapeHTML(item.keyExperience)}</p></div>
+              <div class="project-result"><span>KEY EXPERIENCE</span><p>${escapeHTML(item.keyExperience || item.CoreExperience)}</p></div>
               <span class="project-card-cue">상세 보기 <b aria-hidden="true">↗</b></span>
             </button>`).join("")}
         </div>
@@ -231,8 +231,8 @@
         <div class="project-modal-content">
           <section><span>PROJECT OVERVIEW</span><p>${escapeHTML(details.overview || item.description)}</p></section>
           <section><span>WHAT I DID</span><ul>${tasks.map((task) => `<li>${escapeHTML(task)}</li>`).join("")}</ul></section>
-          <section><span>RESULT</span><p>${escapeHTML(details.result || item.keyExperience)}</p></section>
-          <section><span>WHAT I LEARNED</span><p>${escapeHTML(details.lesson || item.keyExperience)}</p></section>
+          <section><span>RESULT</span><p>${escapeHTML(details.result || item.keyExperience || item.CoreExperience)}</p></section>
+          <section><span>WHAT I LEARNED</span><p>${escapeHTML(details.lesson || item.keyExperience || item.CoreExperience)}</p></section>
         </div>
       </article>`;
     modal.hidden = false;
