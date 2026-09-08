@@ -138,12 +138,13 @@
         </header>
         <div class="project-grid">
           ${data.projects.items.map((item, index) => `
-            <article class="project-card glow-card">
+            <button type="button" class="project-card glow-card" data-project-index="${index}" aria-haspopup="dialog" aria-label="${escapeHTML(item.title)} 상세 설명 보기">
               <div class="card-top"><span class="status-badge ${escapeHTML(item.tone)}">${escapeHTML(item.badge)}</span><span>${pad(index)} / ${String(data.projects.items.length).padStart(2, "0")}</span></div>
               <div class="project-title"><p>${escapeHTML(item.role)}</p><h3>${escapeHTML(item.title)}</h3></div>
               <p>${escapeHTML(item.description)}</p>
               <div class="project-result"><span>KEY EXPERIENCE</span><p>${escapeHTML(item.keyExperience)}</p></div>
-            </article>`).join("")}
+              <span class="project-card-cue">상세 보기 <b aria-hidden="true">↗</b></span>
+            </button>`).join("")}
         </div>
       </section>
 
@@ -177,6 +178,7 @@
         <a class="button primary" href="#main">처음으로 <b aria-hidden="true">↑</b></a>
         <p class="copyright">${escapeHTML(data.site.copyright)}</p>
       </footer>
+      <div class="project-modal" data-project-modal hidden></div>
     </main>`;
 
   const hero = document.querySelector(".hero-backdrop");
@@ -192,4 +194,65 @@
   window.PORTFOLIO_STORAGE_KEY = storageKey;
   window.renderPortfolio = renderPortfolio;
   renderPortfolio();
+
+  let lastProjectTrigger = null;
+
+  const closeProjectModal = () => {
+    const modal = root.querySelector("[data-project-modal]");
+    if (!modal || modal.hidden) return;
+    modal.classList.remove("open");
+    document.body.classList.remove("project-modal-is-open");
+    window.setTimeout(() => {
+      modal.hidden = true;
+      modal.innerHTML = "";
+      if (lastProjectTrigger && lastProjectTrigger.isConnected) lastProjectTrigger.focus();
+    }, 180);
+  };
+
+  const openProjectModal = (index, trigger) => {
+    const item = window.PORTFOLIO_DATA.projects.items[index];
+    const modal = root.querySelector("[data-project-modal]");
+    if (!item || !modal) return;
+    const details = item.details || {};
+    const tasks = Array.isArray(details.tasks) && details.tasks.length
+      ? details.tasks
+      : ["프로젝트에서 담당한 업무와 진행 과정을 입력해 주세요."];
+
+    lastProjectTrigger = trigger;
+    modal.innerHTML = `
+      <div class="project-modal-backdrop" data-project-close></div>
+      <article class="project-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
+        <button type="button" class="project-modal-close" data-project-close aria-label="팝업 닫기">×</button>
+        <div class="project-modal-heading">
+          <span class="status-badge ${escapeHTML(item.tone)}">${escapeHTML(item.badge)}</span>
+          <p>${escapeHTML(item.role)}</p>
+          <h3 id="project-modal-title">${escapeHTML(item.title)}</h3>
+        </div>
+        <div class="project-modal-content">
+          <section><span>PROJECT OVERVIEW</span><p>${escapeHTML(details.overview || item.description)}</p></section>
+          <section><span>WHAT I DID</span><ul>${tasks.map((task) => `<li>${escapeHTML(task)}</li>`).join("")}</ul></section>
+          <section><span>RESULT</span><p>${escapeHTML(details.result || item.keyExperience)}</p></section>
+          <section><span>WHAT I LEARNED</span><p>${escapeHTML(details.lesson || item.keyExperience)}</p></section>
+        </div>
+      </article>`;
+    modal.hidden = false;
+    document.body.classList.add("project-modal-is-open");
+    window.requestAnimationFrame(() => {
+      modal.classList.add("open");
+      modal.querySelector(".project-modal-close").focus();
+    });
+  };
+
+  root.addEventListener("click", (event) => {
+    const trigger = event.target.closest("[data-project-index]");
+    if (trigger) {
+      openProjectModal(Number(trigger.dataset.projectIndex), trigger);
+      return;
+    }
+    if (event.target.closest("[data-project-close]")) closeProjectModal();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeProjectModal();
+  });
 })();
