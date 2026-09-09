@@ -107,7 +107,6 @@
         </header>
         <div class="resume-layout">
           <article class="resume-profile glow-card">
-            <span class="status-badge success">${escapeHTML(data.resume.status)}</span>
             <div class="profile-monogram" aria-hidden="true">${escapeHTML(data.resume.monogram)}</div>
             <div><h3>${escapeHTML(data.resume.name)}</h3><p>${escapeHTML(data.resume.role)}</p></div>
             <dl>
