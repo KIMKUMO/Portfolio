@@ -117,17 +117,11 @@
           </article>
           <div class="resume-groups">
             ${data.resume.groups.map((group) => `
-              <section class="resume-category" aria-labelledby="resume-${escapeHTML(group.key)}">
-                <header><p class="mini-label">${escapeHTML(group.eyebrow)}</p><h3 id="resume-${escapeHTML(group.key)}">${escapeHTML(group.label)}</h3><span>${String(group.items.length).padStart(2, "0")}</span></header>
-                <div class="resume-list">
-                  ${group.items.map((item, index) => `
-                    <button type="button" class="resume-row" data-resume-group="${group.key}" data-resume-index="${index}" aria-haspopup="dialog" aria-label="${escapeHTML(item.title)} 상세 정보 보기">
-                      <span class="row-index">${pad(index)}</span>
-                      <div><p class="resume-meta">${escapeHTML(item.meta)}</p><h4>${escapeHTML(item.title)}</h4></div>
-                      <span class="resume-row-cue" aria-hidden="true">상세 <b>↗</b></span>
-                    </button>`).join("")}
-                </div>
-              </section>`).join("")}
+              <button type="button" class="resume-category-tile" data-resume-category="${escapeHTML(group.key)}" aria-haspopup="dialog" aria-label="${escapeHTML(group.label)} 목록 보기">
+                <span class="resume-tile-count">${String(group.items.length).padStart(2, "0")}</span>
+                <span class="resume-tile-label">${escapeHTML(group.label)}</span>
+                <span class="resume-tile-cue">목록 보기 <b aria-hidden="true">↗</b></span>
+              </button>`).join("")}
           </div>
         </div>
       </section>
@@ -179,6 +173,7 @@
         <a class="button primary" href="#main">처음으로 <b aria-hidden="true">↑</b></a>
         <p class="copyright">${escapeHTML(data.site.copyright)}</p>
       </footer>
+      <div class="resume-category-modal" data-resume-category-modal hidden></div>
       <div class="resume-modal" data-resume-modal hidden></div>
       <div class="project-modal" data-project-modal hidden></div>
     </main>`;
@@ -278,6 +273,8 @@
     const modal = root.querySelector("[data-resume-modal]");
     if (!group || !item || !modal) return;
 
+    closeResumeCategoryModal(false);
+
     lastResumeTrigger = trigger;
     modal.innerHTML = `
       <div class="resume-modal-backdrop" data-resume-close></div>
@@ -300,15 +297,68 @@
   };
 
   root.addEventListener("click", (event) => {
+    const categoryTrigger = event.target.closest("[data-resume-category]");
+    if (categoryTrigger) {
+      openResumeCategoryModal(categoryTrigger.dataset.resumeCategory, categoryTrigger);
+      return;
+    }
     const trigger = event.target.closest("[data-resume-group]");
     if (trigger) {
       openResumeModal(trigger.dataset.resumeGroup, Number(trigger.dataset.resumeIndex), trigger);
       return;
     }
+    if (event.target.closest("[data-resume-category-close]")) closeResumeCategoryModal();
     if (event.target.closest("[data-resume-close]")) closeResumeModal();
   });
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") closeResumeModal();
+  });
+
+  let lastResumeCategoryTrigger = null;
+
+  const closeResumeCategoryModal = (restoreFocus = true) => {
+    const modal = root.querySelector("[data-resume-category-modal]");
+    if (!modal || modal.hidden) return;
+    modal.classList.remove("open");
+    document.body.classList.remove("resume-category-modal-is-open");
+    window.setTimeout(() => {
+      modal.hidden = true;
+      modal.innerHTML = "";
+      if (restoreFocus && lastResumeCategoryTrigger && lastResumeCategoryTrigger.isConnected) lastResumeCategoryTrigger.focus();
+    }, 180);
+  };
+
+  const openResumeCategoryModal = (groupKey, trigger) => {
+    const group = window.PORTFOLIO_DATA.resume.groups.find((item) => item.key === groupKey);
+    const modal = root.querySelector("[data-resume-category-modal]");
+    if (!group || !modal) return;
+
+    lastResumeCategoryTrigger = trigger;
+    modal.innerHTML = `
+      <div class="resume-category-modal-backdrop" data-resume-category-close></div>
+      <article class="resume-category-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="resume-category-modal-title">
+        <button type="button" class="resume-category-modal-close" data-resume-category-close aria-label="팝업 닫기">×</button>
+        <p class="mini-label">${escapeHTML(group.eyebrow)}</p>
+        <h3 id="resume-category-modal-title">${escapeHTML(group.label)}</h3>
+        <div class="resume-category-list">
+          ${group.items.map((item, index) => `
+            <button type="button" class="resume-row" data-resume-group="${escapeHTML(group.key)}" data-resume-index="${index}" aria-haspopup="dialog" aria-label="${escapeHTML(item.title)} 상세 정보 보기">
+              <span class="row-index">${pad(index)}</span>
+              <div><p class="resume-meta">${escapeHTML(item.meta)}</p><h4>${escapeHTML(item.title)}</h4></div>
+              <span class="resume-row-cue" aria-hidden="true">상세 <b>↗</b></span>
+            </button>`).join("")}
+        </div>
+      </article>`;
+    modal.hidden = false;
+    document.body.classList.add("resume-category-modal-is-open");
+    window.requestAnimationFrame(() => {
+      modal.classList.add("open");
+      modal.querySelector(".resume-category-modal-close").focus();
+    });
+  };
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeResumeCategoryModal();
   });
 })();
