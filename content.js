@@ -31,7 +31,7 @@ window.PORTFOLIO_DATA = {
     "name": "김재원",
     "role": "게임 기획자",
     "contacts": {
-      "email": "ky74123@email.com",
+      "email": "ky74123@gmail.com",
       "phone": "010-5462-3378",
       "location": "의정부시, 경기도",
       "military": "군필, 육군 병장 만기전역 (2020.11 ~ 2022.05)"
