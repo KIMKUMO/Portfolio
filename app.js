@@ -121,10 +121,11 @@
                 <header><p class="mini-label">${escapeHTML(group.eyebrow)}</p><h3 id="resume-${escapeHTML(group.key)}">${escapeHTML(group.label)}</h3><span>${String(group.items.length).padStart(2, "0")}</span></header>
                 <div class="resume-list">
                   ${group.items.map((item, index) => `
-                    <article class="resume-row">
+                    <button type="button" class="resume-row" data-resume-group="${group.key}" data-resume-index="${index}" aria-haspopup="dialog" aria-label="${escapeHTML(item.title)} 상세 정보 보기">
                       <span class="row-index">${pad(index)}</span>
-                      <div><p class="resume-meta">${escapeHTML(item.meta)}</p><h4>${escapeHTML(item.title)}</h4><p>${escapeHTML(item.description)}</p></div>
-                    </article>`).join("")}
+                      <div><p class="resume-meta">${escapeHTML(item.meta)}</p><h4>${escapeHTML(item.title)}</h4></div>
+                      <span class="resume-row-cue" aria-hidden="true">상세 <b>↗</b></span>
+                    </button>`).join("")}
                 </div>
               </section>`).join("")}
           </div>
@@ -178,6 +179,7 @@
         <a class="button primary" href="#main">처음으로 <b aria-hidden="true">↑</b></a>
         <p class="copyright">${escapeHTML(data.site.copyright)}</p>
       </footer>
+      <div class="resume-modal" data-resume-modal hidden></div>
       <div class="project-modal" data-project-modal hidden></div>
     </main>`;
 
@@ -254,5 +256,59 @@
 
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") closeProjectModal();
+  });
+
+  let lastResumeTrigger = null;
+
+  const closeResumeModal = () => {
+    const modal = root.querySelector("[data-resume-modal]");
+    if (!modal || modal.hidden) return;
+    modal.classList.remove("open");
+    document.body.classList.remove("resume-modal-is-open");
+    window.setTimeout(() => {
+      modal.hidden = true;
+      modal.innerHTML = "";
+      if (lastResumeTrigger && lastResumeTrigger.isConnected) lastResumeTrigger.focus();
+    }, 180);
+  };
+
+  const openResumeModal = (groupKey, index, trigger) => {
+    const group = window.PORTFOLIO_DATA.resume.groups.find((item) => item.key === groupKey);
+    const item = group?.items[index];
+    const modal = root.querySelector("[data-resume-modal]");
+    if (!group || !item || !modal) return;
+
+    lastResumeTrigger = trigger;
+    modal.innerHTML = `
+      <div class="resume-modal-backdrop" data-resume-close></div>
+      <article class="resume-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="resume-modal-title">
+        <button type="button" class="resume-modal-close" data-resume-close aria-label="팝업 닫기">×</button>
+        <p class="mini-label">${escapeHTML(group.eyebrow)}</p>
+        <p class="resume-modal-meta">${escapeHTML(item.meta)}</p>
+        <h3 id="resume-modal-title">${escapeHTML(item.title)}</h3>
+        <section class="resume-modal-content">
+          <span>DETAILS</span>
+          <p>${escapeHTML(item.description || "상세 정보를 입력해 주세요.")}</p>
+        </section>
+      </article>`;
+    modal.hidden = false;
+    document.body.classList.add("resume-modal-is-open");
+    window.requestAnimationFrame(() => {
+      modal.classList.add("open");
+      modal.querySelector(".resume-modal-close").focus();
+    });
+  };
+
+  root.addEventListener("click", (event) => {
+    const trigger = event.target.closest("[data-resume-group]");
+    if (trigger) {
+      openResumeModal(trigger.dataset.resumeGroup, Number(trigger.dataset.resumeIndex), trigger);
+      return;
+    }
+    if (event.target.closest("[data-resume-close]")) closeResumeModal();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeResumeModal();
   });
 })();
