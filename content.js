@@ -68,7 +68,23 @@ window.PORTFOLIO_DATA = {
         "key": "education",
         "label": "교육",
         "eyebrow": "EDUCATION",
-        "items": []
+        "items": [
+          {
+            "title": "SBS게임아카데미",
+            "meta": "2020.01 ~ 2020.08(7개월)",
+            "description": "Unity엔진을 활용한 게임 개발, 게임 기획"
+          },
+          {
+            "title": "아텐츠게아카데미",
+            "meta": "2025.02 ~ 2025.4(3개월)",
+            "description": "게임 기획"
+          },
+          {
+            "title": "경일IT게임아카데미(디벨로켓에듀)",
+            "meta": "2026.06 ~ 2026.12(6개월)",
+            "description": "AI를 활용한 게임 기획"
+          }
+        ]
       },
       {
         "key": "certificate",
