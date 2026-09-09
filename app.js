@@ -116,9 +116,9 @@
             </dl>
           </article>
           <div class="resume-groups">
-            ${data.resume.groups.map((group) => `
+            ${data.resume.groups.map((group, index) => `
               <button type="button" class="resume-category-tile" data-resume-category="${escapeHTML(group.key)}" aria-haspopup="dialog" aria-label="${escapeHTML(group.label)} 목록 보기">
-                <span class="resume-tile-count">${String(group.items.length).padStart(2, "0")}</span>
+                <span class="resume-tile-count">${pad(index)}</span>
                 <span class="resume-tile-label">${escapeHTML(group.label)}</span>
                 <span class="resume-tile-cue">목록 보기 <b aria-hidden="true">↗</b></span>
               </button>`).join("")}
