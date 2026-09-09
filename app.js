@@ -170,7 +170,10 @@
 
       <footer class="site-footer section-shell">
         <div><p class="eyebrow">${escapeHTML(data.footer.eyebrow)}</p><h2>${escapeHTML(data.footer.titleLines[0])}<br><span>${escapeHTML(data.footer.titleLines[1])}</span></h2></div>
-        <a class="button primary" href="#main">처음으로 <b aria-hidden="true">↑</b></a>
+        <address class="footer-contact">
+          <strong>김재원</strong>
+          <span>이메일 : <a href="mailto:ky74123@gmail.com">ky74123@gmail.com</a></span>
+        </address>
         <p class="copyright">${escapeHTML(data.site.copyright)}</p>
       </footer>
       <div class="resume-category-modal" data-resume-category-modal hidden></div>
