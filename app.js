@@ -2,7 +2,7 @@
   "use strict";
 
   const root = document.getElementById("app");
-  const storageKey = "steadyPlannerPortfolioDataV3";
+  const storageKey = "steadyPlannerPortfolioDataV4";
   window.DEFAULT_PORTFOLIO_DATA = JSON.parse(JSON.stringify(window.PORTFOLIO_DATA));
 
   try {
@@ -342,12 +342,12 @@
         <p class="mini-label">${escapeHTML(group.eyebrow)}</p>
         <h3 id="resume-category-modal-title">${escapeHTML(group.label)}</h3>
         <div class="resume-category-list">
-          ${group.items.map((item, index) => `
+          ${group.items.length ? group.items.map((item, index) => `
             <button type="button" class="resume-row" data-resume-group="${escapeHTML(group.key)}" data-resume-index="${index}" aria-haspopup="dialog" aria-label="${escapeHTML(item.title)} 상세 정보 보기">
               <span class="row-index">${pad(index)}</span>
               <div><p class="resume-meta">${escapeHTML(item.meta)}</p><h4>${escapeHTML(item.title)}</h4></div>
               <span class="resume-row-cue" aria-hidden="true">상세 <b>↗</b></span>
-            </button>`).join("")}
+            </button>`).join("") : '<p class="resume-category-empty">아직 등록된 교육 항목이 없습니다.<br>사이트 편집에서 교육 내용을 추가해 주세요.</p>'}
         </div>
       </article>`;
     modal.hidden = false;

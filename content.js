@@ -65,6 +65,12 @@ window.PORTFOLIO_DATA = {
         ]
       },
       {
+        "key": "education",
+        "label": "교육",
+        "eyebrow": "EDUCATION",
+        "items": []
+      },
+      {
         "key": "certificate",
         "label": "자격증",
         "eyebrow": "CERTIFICATES",
