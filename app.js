@@ -187,7 +187,8 @@
   root.addEventListener("click", (event) => {
     const close = event.target.closest("[data-quick-close]");
     if (close) { const modal = close.closest(".resume-category-modal,.project-modal,.hobby-modal"); if (modal) { modal.hidden = true; modal.innerHTML = ""; } return; }
-        const item = data.portfolio.items[Number(element.dataset.portfolioImage)];  
+        const item = data.portfolio.items[Number(element.dataset.portfolioImage)];  const details = Array.isArray(item.details) ? item.details : [];detail.description || "상세 내용을 입력해 주세요."
+    detail.description || ""
     const projectButton = event.target.closest("[data-project-index]");  
     if (projectButton) { const item=window.PORTFOLIO_DATA.projects.items[Number(projectButton.dataset.projectIndex)]; const modal=root.querySelector("[data-project-modal]"); if(item&&modal){modal.innerHTML=`<div class="project-modal-backdrop" data-quick-close></div><article class="project-modal-dialog" role="dialog"><button class="project-modal-close" data-quick-close>×</button><h3>${escapeHTML(item.title)}</h3><div class="project-modal-content"><section><span>PROJECT OVERVIEW</span><p>${escapeHTML(item.details?.overview||item.description)}</p></section><section><span>RESULT</span><p>${escapeHTML(item.details?.result||item.keyExperience)}</p></section></div></article>`;modal.hidden=false;modal.classList.add("open");} return; }
     const hobbyButton=event.target.closest("[data-hobby-index]");
