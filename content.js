@@ -3,7 +3,7 @@ window.PORTFOLIO_DATA = {
     "brand": "STEADY / PLANNER",
     "title": "거북이 기획자 김재원",
     "description": "게임 기획자의 이력서, 프로젝트 경험, 포트폴리오와 취미를 담은 개인 웹사이트",
-    "heroImage": "assets/portal-hero.png",
+    "heroImage": "assets/guboki.png",
     "copyright": "© 2026 GAME PLANNER PORTFOLIO"
   },
   "hero": {
