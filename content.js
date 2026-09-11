@@ -230,12 +230,12 @@ window.PORTFOLIO_DATA = {
         "title": "좋아하는 게임",
         "description": "제가 많이 즐겨왔던 게임들 입니다.",
         "details": [
-          { "image": "", "title": "자리 01 제목", "description": "자리 01 내용을 입력해 주세요." },
-          { "image": "", "title": "자리 02 제목", "description": "자리 02 내용을 입력해 주세요." },
-          { "image": "", "title": "자리 03 제목", "description": "자리 03 내용을 입력해 주세요." },
-          { "image": "", "title": "자리 04 제목", "description": "자리 04 내용을 입력해 주세요." },
-          { "image": "", "title": "자리 05 제목", "description": "자리 05 내용을 입력해 주세요." },
-          { "image": "", "title": "자리 06 제목", "description": "자리 06 내용을 입력해 주세요." }
+          { "image": "LOL.png", "title": "리그 오브 레전드", "description": "플레이 기간 : 10년\n플레이 타임 : 2500 시간" },
+          { "image": "Limbus.png", "title": "림버스 컴퍼니", "description": "플레이 기간 : 1년\n플레이 타임 : 1500 시간" },
+          { "image": "LostArk.png", "title": "로스트 아크", "description": "플레이 기간 : 2년\n플레이 타임 : 1300 시간" },
+          { "image": "EternalReturn.png", "title": "이터널 리턴", "description": "플레이 기간 : 3년\n플레이 타임 : 700 시간" },
+          { "image": "MHWD.png", "title": "몬스터헌터:월드", "description": "플레이 기간 : 7년\n플레이 타임 : 530 시간" },
+          { "image": "Slaythespire.png", "title": "슬레이 더 스파이어", "description": "플레이 기간 : 7년\n플레이 타임 : 440 시간" }
         ]
       },
       {
