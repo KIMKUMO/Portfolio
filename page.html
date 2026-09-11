@@ -1,3 +1,3 @@
 <!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Portfolio</title><link rel="stylesheet" href="styles.css"></head><body><div id="app"></div><script src="content.js"></script><script src="app.js"></script><script>const s=new URLSearchParams(location.search).get("section")||"main";document.querySelectorAll("#app main>section,#app main>footer").forEach(el=>{const id=el.id||"footer";el.style.display=(s==="main"||id===s)?"":"none"});document.querySelectorAll("#app nav a").forEach(a=>{a.href="page.html?section="+((a.getAttribute("href")||"").split("=").pop())});</script></body></html>
  /*main-only*  
-el.style.display=s==="main"?(el.classList.contains("hero")?"":"none"):(id===s?"":"none") 
+el.style.display=s==="main"?(el.classList.contains("hero")?"":"none"):(id===s?"":"none")  
