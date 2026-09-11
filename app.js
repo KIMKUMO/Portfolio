@@ -65,7 +65,7 @@
           <span>${escapeHTML(data.site.brand)}</span>
         </a>
         <nav aria-label="주요 메뉴">
-          <a href="#main">메인</a>
+          <a href="page.html?section=main">메인</a>
           <a href="page.html?section=resume">이력서</a>
           <a href="page.html?section=experience">프로젝트 경험</a>
           <a href="page.html?section=portfolio">포트폴리오</a>
