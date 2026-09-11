@@ -183,6 +183,17 @@
 
   document.querySelectorAll("[data-portfolio-image]").forEach((element) => {
     const item = data.portfolio.items[Number(element.dataset.portfolioImage)];escapeHTML(detail.description || "상세 내용을 입력해 주세요.").replace(/\s*\/\s*/g,"<br>")  
+
+  root.addEventListener("click", (event) => {
+    const close = event.target.closest("[data-quick-close]");
+    if (close) { const modal = close.closest(".resume-category-modal,.project-modal,.hobby-modal"); if (modal) { modal.hidden = true; modal.innerHTML = ""; } return; }
+    const resumeButton = event.target.closest("[data-resume-category]");
+    if (resumeButton) { const group = window.PORTFOLIO_DATA.resume.groups.find(g => g.key === resumeButton.dataset.resumeCategory); const modal = root.querySelector("[data-resume-category-modal]"); if (group && modal) { modal.innerHTML = `<div class="resume-category-modal-backdrop" data-quick-close></div><article class="resume-category-modal-dialog" role="dialog"><button class="resume-category-modal-close" data-quick-close>×</button><p class="mini-label">${escapeHTML(group.eyebrow)}</p><h3>${escapeHTML(group.label)}</h3><div class="resume-category-list">${group.items.map((item,i)=>`<article class="resume-row"><span class="row-index">${pad(i)}</span><div><p class="resume-meta">${escapeHTML(item.meta)}</p><h4>${escapeHTML(item.title)}</h4><p>${escapeHTML(item.description)}</p></div></article>`).join("")}</div></article>`; modal.hidden=false; modal.classList.add("open"); } return; }
+    const projectButton = event.target.closest("[data-project-index]");
+    if (projectButton) { const item=window.PORTFOLIO_DATA.projects.items[Number(projectButton.dataset.projectIndex)]; const modal=root.querySelector("[data-project-modal]"); if(item&&modal){modal.innerHTML=`<div class="project-modal-backdrop" data-quick-close></div><article class="project-modal-dialog" role="dialog"><button class="project-modal-close" data-quick-close>×</button><h3>${escapeHTML(item.title)}</h3><div class="project-modal-content"><section><span>PROJECT OVERVIEW</span><p>${escapeHTML(item.details?.overview||item.description)}</p></section><section><span>RESULT</span><p>${escapeHTML(item.details?.result||item.keyExperience)}</p></section></div></article>`;modal.hidden=false;modal.classList.add("open");} return; }
+    const hobbyButton=event.target.closest("[data-hobby-index]");
+    if(hobbyButton){const item=window.PORTFOLIO_DATA.hobbies.items[Number(hobbyButton.dataset.hobbyIndex)];const modal=root.querySelector("[data-hobby-modal]");if(item&&modal){modal.innerHTML=`<div class="hobby-modal-backdrop" data-quick-close></div><article class="hobby-modal-dialog" role="dialog"><button class="hobby-modal-close" data-quick-close>×</button><h3>${escapeHTML(item.title)}</h3><div class="hobby-detail-grid">${(item.details||[]).map((d,i)=>`<article class="hobby-detail-slot">${d.image?`<img src="${escapeHTML(d.image)}" alt="">`:""}<div class="hobby-detail-copy"><span>${pad(i)}</span><h4>${escapeHTML(d.title)}</h4><p>${escapeHTML(d.description)}</p></div></article>`).join("")}</div></article>`;modal.hidden=false;modal.classList.add("open");}}
+  });  
     if (item && item.image) element.style.backgroundImage = `linear-gradient(rgba(0,0,0,.24),rgba(0,0,0,.58)),url("${item.image}")`;
   });
 
