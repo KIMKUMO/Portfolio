@@ -157,10 +157,10 @@
         </header>
         <div class="hobby-grid">
           ${data.hobbies.items.map((item, index) => `
-            <article class="hobby-feature glow-card">
+            <button type="button" class="hobby-feature glow-card" data-hobby-index="${index}" aria-haspopup="dialog" aria-label="${escapeHTML(item.title)} 상세 정보 보기">
               <span class="hobby-number">${pad(index)}</span>
               <div><p class="mini-label">${escapeHTML(item.label)}</p><h3>${escapeHTML(item.title)}</h3><p>${escapeHTML(item.description)}</p></div>
-            </article>`).join("")}
+            </button>`).join("")}
         </div>
         <div class="game-tags" aria-label="좋아하는 게임 장르">
           ${data.hobbies.tags.map((tag, index) => `<span class="status-badge ${["success", "info", "violet", "pink"][index % 4]}">${escapeHTML(tag)}</span>`).join("")}
@@ -178,6 +178,7 @@
       <div class="resume-category-modal" data-resume-category-modal hidden></div>
       <div class="resume-modal" data-resume-modal hidden></div>
       <div class="project-modal" data-project-modal hidden></div>
+      <div class="hobby-modal" data-hobby-modal hidden></div>
     </main>`;
 
   const hero = document.querySelector(".hero-backdrop");
@@ -363,4 +364,9 @@
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape") closeResumeCategoryModal();
   });
+  let lastHobbyTrigger = null;
+  const closeHobbyModal = (restoreFocus = true) => { const modal = root.querySelector("[data-hobby-modal]"); if (!modal || modal.hidden) return; modal.classList.remove("open"); document.body.classList.remove("hobby-modal-is-open"); window.setTimeout(() => { modal.hidden = true; modal.innerHTML = ""; if (restoreFocus && lastHobbyTrigger && lastHobbyTrigger.isConnected) lastHobbyTrigger.focus(); }, 180); };
+  const openHobbyModal = (index, trigger) => { const item = window.PORTFOLIO_DATA.hobbies.items[index]; const modal = root.querySelector("[data-hobby-modal]"); if (!item || !modal) return; lastHobbyTrigger = trigger; const details = Array.from({length: 6}, (_, i) => item.details?.[i] || {}); modal.innerHTML = `<div class="hobby-modal-backdrop" data-hobby-close></div><article class="hobby-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="hobby-modal-title"><button type="button" class="hobby-modal-close" data-hobby-close aria-label="팝업 닫기">×</button><p class="mini-label">${escapeHTML(item.label)}</p><h3 id="hobby-modal-title">${escapeHTML(item.title)}</h3><p class="hobby-modal-intro">${escapeHTML(item.description)}</p><div class="hobby-detail-grid">${details.map((detail, i) => `<article class="hobby-detail-slot">${detail.image ? `<img src="${escapeHTML(detail.image)}" alt="">` : `<div class="hobby-detail-placeholder">PHOTO ${pad(i)}</div>`}<div class="hobby-detail-copy"><span>${pad(i)}</span><h4>${escapeHTML(detail.title || `자리 ${pad(i)} 제목`)}</h4><p>${escapeHTML(detail.description || "상세 내용을 입력해 주세요.")}</p></div></article>`).join("")}</div></article>`; modal.hidden = false; document.body.classList.add("hobby-modal-is-open"); window.requestAnimationFrame(() => { modal.classList.add("open"); modal.querySelector(".hobby-modal-close").focus(); }); };
+  root.addEventListener("click", (event) => { const trigger = event.target.closest("[data-hobby-index]"); if (trigger) { openHobbyModal(Number(trigger.dataset.hobbyIndex), trigger); return; } if (event.target.closest("[data-hobby-close]")) closeHobbyModal(); });
+  document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeHobbyModal(); });
 })();
