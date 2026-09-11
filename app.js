@@ -163,7 +163,7 @@
             </button>`).join("")}
         </div>
         <div class="game-tags" aria-label="좋아하는 게임 장르">
-          ${data.hobbies.tags.map((tag, index) => `<span class="status-badge ${["success", "info", "violet", "pink"][index % 4]}">${escapeHTML(tag)}</span>`).join("")}
+          ${data.hobbies.tags.map((tag, index) => `<a class="status-badge ${["success", "info", "violet", "pink"][index % 4]}" href="tag.html?tag=${encodeURIComponent(tag)}">${escapeHTML(tag)}</a>`).join("")}
         </div>
       </section>
 
