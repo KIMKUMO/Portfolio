@@ -241,29 +241,13 @@ window.PORTFOLIO_DATA = {
         ]
       },
       {
-        "label": "PLAY EXPERIENCE",
-        "title": "플레이 경험",
-        "description": "제가 플레이해보면서 인상깊었던 게임 경험들 입니다.",
-        "details": [
-          { "image": "", "title": "자리 01 제목", "description": "자리 01 내용을 입력해 주세요." },
-          { "image": "", "title": "자리 02 제목", "description": "자리 02 내용을 입력해 주세요." },
-          { "image": "", "title": "자리 03 제목", "description": "자리 03 내용을 입력해 주세요." },
-          { "image": "", "title": "자리 04 제목", "description": "자리 04 내용을 입력해 주세요." },
-          { "image": "", "title": "자리 05 제목", "description": "자리 05 내용을 입력해 주세요." },
-          { "image": "", "title": "자리 06 제목", "description": "자리 06 내용을 입력해 주세요." }
-        ]
-      },
-      {
         "label": "RESET ROUTINE",
         "title": "나만의 회복법",
         "description": "저는 이런 방식을 통해 스트레스를 이겨냅니다.",
         "details": [
-          { "image": "", "title": "자리 01 제목", "description": "자리 01 내용을 입력해 주세요." },
-          { "image": "", "title": "자리 02 제목", "description": "자리 02 내용을 입력해 주세요." },
-          { "image": "", "title": "자리 03 제목", "description": "자리 03 내용을 입력해 주세요." },
-          { "image": "", "title": "자리 04 제목", "description": "자리 04 내용을 입력해 주세요." },
-          { "image": "", "title": "자리 05 제목", "description": "자리 05 내용을 입력해 주세요." },
-          { "image": "", "title": "자리 06 제목", "description": "자리 06 내용을 입력해 주세요." }
+          { "image": "assets/bowling.png", "title": "볼링", "description": "" },
+          { "image": "assets/baseball.png", "title": "야구", "description": "" },
+          { "image": "assets/movie.png", "title": "영화", "description": "" }
         ]
       }
     ],
