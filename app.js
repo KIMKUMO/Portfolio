@@ -107,7 +107,7 @@
         </header>
         <div class="resume-layout">
           <article class="resume-profile glow-card">
-            <div class="profile-monogram" aria-hidden="true">${escapeHTML(data.resume.monogram)}</div>
+                        <img class="profile-monogram" src="assets/KakaoTalk_20260911_125731636.jpg" alt="${escapeHTML(data.resume.name)} 프로필 사진" style="display:block;height:190px;min-height:190px;object-fit:cover;object-position:center 28%;font-size:0">
             <div><h3>${escapeHTML(data.resume.name)}</h3><p>${escapeHTML(data.resume.role)}</p></div>
             <dl>
               ${Object.entries(data.resume.contacts).map(([key, value]) => `
