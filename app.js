@@ -182,7 +182,7 @@
   if (hero && data.site.heroImage) hero.style.backgroundImage = `url("${data.site.heroImage}")`;
 
   document.querySelectorAll("[data-portfolio-image]").forEach((element) => {
-    const item = data.portfolio.items[Number(element.dataset.portfolioImage)];
+    const item = data.portfolio.items[Number(element.dataset.portfolioImage)];escapeHTML(detail.description || "상세 내용을 입력해 주세요.").replace(/\s*\/\s*/g,"<br>")  
     if (item && item.image) element.style.backgroundImage = `linear-gradient(rgba(0,0,0,.24),rgba(0,0,0,.58)),url("${item.image}")`;
   });
 
