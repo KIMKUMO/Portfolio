@@ -141,7 +141,7 @@ window.PORTFOLIO_DATA = {
   "projects": {
     "intro": "어떤 프로젝트였는지, 무엇을 맡았는지, 문제를 어떻게 해결했는지를 순서대로 보여줍니다.",
     
-      ,{ "badge": "SYSTEM", "tone": "violet", "title": "협업 프로젝트", "role": "콘텐츠 기획", "description": "팀과 함께 아이디어를 구체화하고 결과물을 완성한 경험입니다.", "keyExperience": "역할을 나누고 일정을 조율하며 프로젝트를 완주했습니다.", "details": { "overview": "팀 기반 기획 프로젝트", "tasks": ["요구사항 정리", "콘텐츠 구조 설계"], "result": "협업 프로세스 개선", "lesson": "명확한 소통의 중요성을 배웠습니다." } },
+  
       { "badge": "LIVE", "tone": "pink", "title": "서비스 개선", "role": "라이브서비스", "description": "사용자 피드백을 분석해 서비스 경험을 개선한 프로젝트입니다.", "keyExperience": "데이터와 의견을 바탕으로 개선안을 제안했습니다.", "details": { "overview": "사용자 경험 개선 프로젝트", "tasks": ["피드백 분석", "개선안 문서화"], "result": "사용성 향상", "lesson": "작은 개선의 누적이 큰 변화를 만듭니다." } },
   "items": [
       {
