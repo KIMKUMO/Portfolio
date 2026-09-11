@@ -82,7 +82,7 @@
           <p class="hero-copy">${escapeHTML(data.hero.description)}</p>
           <div class="hero-actions">
             <a class="button primary" href="#story">소개 읽기 <b aria-hidden="true">↘</b></a>
-            <a class="button ghost" href="#resume">이력서 보기</a>
+            
           </div>
         </div>
         <a class="scroll-cue" href="#story" aria-label="소개로 스크롤"><span>SCROLL</span><i aria-hidden="true"></i></a>
