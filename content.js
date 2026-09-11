@@ -34,7 +34,8 @@ window.PORTFOLIO_DATA = {
       "email": "ky74123@gmail.com",
       "phone": "010-5462-3378",
       "location": "의정부시, 경기도",
-      "military": "군필, 육군 병장 만기전역 (2020.11 ~ 2022.05)"
+      "military": "군필, 육군 병장 만기전역 (2020.11 ~ 2022.05)",
+      "university" : "서정대학교 게임영상콘텐츠과"
     },
     "groups": [
       {
