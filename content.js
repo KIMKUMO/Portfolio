@@ -228,17 +228,17 @@ window.PORTFOLIO_DATA = {
       {
         "label": "FAVORITE GAMES",
         "title": "좋아하는 게임",
-        "description": "즐겨 온 게임의 장르와 작품, 오래 플레이하게 만든 재미를 기록해 주세요."
+        "description": "제가 많이 즐겨왔던 게임들 입니다."
       },
       {
         "label": "PLAY EXPERIENCE",
         "title": "플레이 경험",
-        "description": "인상 깊었던 시스템과 콘텐츠, 플레이어로서 발견한 관점을 소개해 주세요."
+        "description": "제가 플레이해보면서 인상깊었던 게임 경험들 입니다."
       },
       {
         "label": "RESET ROUTINE",
         "title": "나만의 회복법",
-        "description": "스트레스를 해소하고 다시 집중력을 채우는 취미와 루틴을 입력해 주세요."
+        "description": "저는 이런 방식을 통해 스트레스를 이겨냅니다."
       }
     ],
     "tags": [
