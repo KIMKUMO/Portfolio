@@ -60,16 +60,16 @@
   root.innerHTML = `
     <main id="main">
       <header class="site-header">
-        <a class="brand" href="#main" aria-label="메인으로 이동">
+        <a class="brand" href="page.html?section=main" aria-label="메인으로 이동">
           <span class="brand-mark" aria-hidden="true">T</span>
           <span>${escapeHTML(data.site.brand)}</span>
         </a>
         <nav aria-label="주요 메뉴">
           <a href="#main">메인</a>
-          <a href="#resume">이력서</a>
-          <a href="#experience">프로젝트 경험</a>
-          <a href="#portfolio">포트폴리오</a>
-          <a href="#hobby">취미</a>
+          <a href="page.html?section=resume">이력서</a>
+          <a href="page.html?section=experience">프로젝트 경험</a>
+          <a href="page.html?section=portfolio">포트폴리오</a>
+          <a href="page.html?section=hobby">취미</a>
         </nav>
         <a class="header-cta" href="#portfolio">작업 보기</a>
       </header>
@@ -161,9 +161,6 @@
               <span class="hobby-number">${pad(index)}</span>
               <div><p class="mini-label">${escapeHTML(item.label)}</p><h3>${escapeHTML(item.title)}</h3><p>${escapeHTML(item.description)}</p></div>
             </button>`).join("")}
-        </div>
-        <div class="game-tags" aria-label="좋아하는 게임 장르">
-          ${data.hobbies.tags.map((tag, index) => `<a class="status-badge ${["success", "info", "violet", "pink"][index % 4]}" href="tag.html?tag=${encodeURIComponent(tag)}">${escapeHTML(tag)}</a>`).join("")}
         </div>
       </section>
 
