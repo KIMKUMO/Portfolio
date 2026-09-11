@@ -101,6 +101,8 @@
           </div>
         </section>`).join("")}
 
+      
+      <section class="editor-section"><div class="editor-section-title"><span>05</span><div><p>HOBBIES</p><h3>취미 팝업 6칸</h3></div></div>${window.PORTFOLIO_DATA.hobbies.items.map((hobby,hi)=>`<div class="editor-hobby"><h4>${escapeHTML(hobby.title)}</h4>${Array.from({length:6},(_,di)=>{const d=hobby.details?.[di]||{};return `<div class="editor-field-grid"><label class="editor-field"><span>사진 URL ${String(di+1).padStart(2,"0")}</span><input type="text" value="${escapeHTML(d.image)}" data-hobby-detail-field="image" data-hobby="${hi}" data-detail="${di}"></label><label class="editor-field"><span>제목</span><input type="text" value="${escapeHTML(d.title)}" data-hobby-detail-field="title" data-hobby="${hi}" data-detail="${di}"></label><label class="editor-field wide"><span>내용</span><textarea rows="2" data-hobby-detail-field="description" data-hobby="${hi}" data-detail="${di}">${escapeHTML(d.description)}</textarea></label></div>`}).join("")}</div>`).join("")}</section>
       <footer class="editor-footer">
         <button class="editor-button primary" type="button" data-editor-action="download">content.js 내보내기</button>
         <button class="editor-button" type="button" data-editor-action="import">파일 불러오기</button>
@@ -123,7 +125,14 @@
   let toastTimer;
   function notify(message) {
     clearTimeout(toastTimer);
-    toast.textContent = message;
+    
+          if (target.dataset.hobbyDetailField) {
+      const hobby = window.PORTFOLIO_DATA.hobbies.items[Number(target.dataset.hobby)];
+      hobby.details = hobby.details || Array.from({length: 6}, () => ({image: "", title: "", description: ""}));
+      hobby.details[Number(target.dataset.detail)][target.dataset.hobbyDetailField] = target.value;
+    }
+  <section class="editor-section"><div class="editor-section-title"><span>05</span><div><p>HOBBIES</p><h3>취미 팝업 6칸</h3></div></div>${window.PORTFOLIO_DATA.hobbies.items.map((hobby,hi)=>`<div class="editor-hobby"><h4>${escapeHTML(hobby.title)}</h4>${Array.from({length:6},(_,di)=>{const d=hobby.details?.[di]||{};return `<div class="editor-field-grid"><label class="editor-field"><span>사진 URL ${String(di+1).padStart(2,"0")}</span><input type="text" value="${escapeHTML(d.image)}" data-hobby-detail-field="image" data-hobby="${hi}" data-detail="${di}"></label><label class="editor-field"><span>제목</span><input type="text" value="${escapeHTML(d.title)}" data-hobby-detail-field="title" data-hobby="${hi}" data-detail="${di}"></label><label class="editor-field wide"><span>내용</span><textarea rows="2" data-hobby-detail-field="description" data-hobby="${hi}" data-detail="${di}">${escapeHTML(d.description)}</textarea></label></div>`}).join("")}</div>`).join("")}</section>
+      toast.textContent = message;
     toast.classList.add("show");
     toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
   }
@@ -158,6 +167,11 @@
     if (target.dataset.contact) resume.contacts[target.dataset.contact] = target.value;
     if (target.dataset.itemField) {
       resume.groups[Number(target.dataset.group)].items[Number(target.dataset.item)][target.dataset.itemField] = target.value;
+    }
+    if (target.dataset.hobbyDetailField) {
+      const hobby = window.PORTFOLIO_DATA.hobbies.items[Number(target.dataset.hobby)];
+      hobby.details = hobby.details || Array.from({length: 6}, () => ({image: "", title: "", description: ""}));
+      hobby.details[Number(target.dataset.detail)][target.dataset.hobbyDetailField] = target.value;
     }
     saveAndRender();
   });
