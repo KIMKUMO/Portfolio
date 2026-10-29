@@ -57,7 +57,7 @@ h1 span { color: var(--violet); text-shadow: 0 0 30px rgba(178,150,248,.28); }
 .story h2 { word-break: keep-all; }
 .story-copy { position: relative; padding: 72px 0 0 72px; }
 .quote-mark { position: absolute; top: -34px; left: 0; color: rgba(178,150,248,.24); font-family: Georgia,serif; font-size: 180px; line-height: 1; }
-.story-copy > p { position: relative; margin: 0 0 24px; color: var(--text); font-size: clamp(18px,2.2vw,25px); line-height: 1.75; letter-spacing: -.01em; }
+.story-copy > p { position: relative; margin: 0 0 24px; color: var(--text); font-size: clamp(18px,2.2vw,25px); line-height: 1.75; letter-spacing: -.01em; word-break: keep-all; }
 .story-line { display: flex; align-items: center; gap: 16px; margin-top: 44px; color: var(--muted); font-size: 12px; letter-spacing: .2em; }
 .story-line i { width: 76px; height: 1px; background: var(--violet); }
 
