@@ -3,7 +3,6 @@ window.PORTFOLIO_DATA = {
     "brand": "김재원 포트폴리오",
     "title": "거북이 기획자 김재원",
     "description": "게임 기획자의 이력서, 프로젝트 경험, 포트폴리오와 취미를 담은 개인 웹사이트",
-    "heroImage": "assets/guboki.png",
     "copyright": "© 2026 GAME PLANNER PORTFOLIO"
   },
   "hero": {
@@ -11,7 +10,20 @@ window.PORTFOLIO_DATA = {
     "firstLine": "저는",
     "highlight": "마당쇠",
     "lastWord": "기획자 입니다",
-    "description": "느릴지언정 멈추진 않습니다. 끝까지 나아가는 게임 기획자의 기록입니다."
+    "description": "느릴지언정 멈추진 않습니다. 끝까지 나아가는 게임 기획자의 기록입니다.",
+    "slides": [
+      {
+        "title": "제로 게이트",
+        "image": "assets/zerogate-hero.webp",
+        "logo": "assets/zerogate-logo.webp",
+        "details": [
+          "역할 : 기획 및 개발",
+          "진행 업무 : 전투, 캐릭터 디자인, 레벨 디자인 상위문서,",
+          "던전 테마(구조) 기획서 작성",
+          "문서 레이아웃, 비주얼 가이드, 캐릭터 디자인 가이드 작성"
+        ]
+      }
+    ]
   },
   "story": {
     "eyebrow": "",

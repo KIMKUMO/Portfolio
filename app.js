@@ -75,7 +75,16 @@
       </header>
 
       <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-backdrop" aria-hidden="true"></div>
+        <div class="hero-slides" aria-hidden="true">
+          ${data.hero.slides.map((slide, index) => `<div class="hero-slide${index === 0 ? " is-active" : ""}" data-hero-slide="${index}"></div>`).join("")}
+        </div>
+        <div class="hero-captions">
+          ${data.hero.slides.map((slide, index) => `
+            <div class="hero-caption${index === 0 ? " is-active" : ""}"${index === 0 ? "" : " aria-hidden=\"true\""}>
+              <img class="hero-caption-logo" src="${escapeHTML(slide.logo)}" alt="${escapeHTML(slide.title)}">
+              <div class="hero-caption-details">${slide.details.map((detail) => `<p>${escapeHTML(detail)}</p>`).join("")}</div>
+            </div>`).join("")}
+        </div>
         <div class="hero-content">
           <p class="eyebrow">${escapeHTML(data.hero.eyebrow)}</p>
           <h1 id="hero-title">${data.hero.firstLine ? `${escapeHTML(data.hero.firstLine)}<br>` : ""}<span>${escapeHTML(data.hero.highlight)}</span> ${escapeHTML(data.hero.lastWord)}</h1>
@@ -178,8 +187,10 @@
       <div class="hobby-modal" data-hobby-modal hidden></div>
     </main>`;
 
-  const hero = document.querySelector(".hero-backdrop");
-  if (hero && data.site.heroImage) hero.style.backgroundImage = `url("${data.site.heroImage}")`;
+  document.querySelectorAll("[data-hero-slide]").forEach((element) => {
+    const slide = data.hero.slides[Number(element.dataset.heroSlide)];
+    element.style.backgroundImage = `url("${slide.image}")`;
+  });
 
   document.querySelectorAll("[data-portfolio-image]").forEach((element) => {
     const item = data.portfolio.items[Number(element.dataset.portfolioImage)];
