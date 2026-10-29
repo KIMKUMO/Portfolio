@@ -16,7 +16,8 @@ window.PORTFOLIO_DATA = {
   "story": {
     "eyebrow": "",
     "titleLines": [
-      "현재 수정중"
+      "어떠한 업무든",
+      "묵묵하게 내일처럼"
     ],
     "paragraphs": [
       "현재 수정중"
