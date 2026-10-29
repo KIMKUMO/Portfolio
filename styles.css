@@ -40,7 +40,6 @@ nav a:hover, nav a:focus-visible { background: rgba(178,150,248,.1); color: var(
 h1,h2,h3,p { overflow-wrap: anywhere; }
 h1,h2 { margin: 0; color: var(--white); font-weight: 900; letter-spacing: -.045em; }
 h1 { max-width: 700px; font-size: clamp(52px,7.2vw,92px); line-height: .98; }
-h1 span { color: var(--green); text-shadow: 0 0 30px rgba(120,216,112,.28); }
 .hero-copy { max-width: 570px; margin: 26px 0 0; color: var(--text); line-height: 1.75; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
 .button { display: inline-flex; min-height: 50px; align-items: center; justify-content: center; gap: 18px; padding: 14px 22px; border-radius: var(--radius); font-size: 14px; font-weight: 700; transition: transform .2s ease, border-color .2s ease, box-shadow .2s ease; }

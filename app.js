@@ -90,7 +90,7 @@
 
       <section id="story" class="story section-shell" aria-labelledby="story-title">
         <div class="story-heading">
-          <p class="eyebrow">${escapeHTML(data.story.eyebrow)}</p>
+          ${data.story.eyebrow ? `<p class="eyebrow">${escapeHTML(data.story.eyebrow)}</p>` : ""}
           <h2 id="story-title">${lines(data.story.titleLines)}</h2>
         </div>
         <div class="story-copy">
