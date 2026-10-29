@@ -17,10 +17,9 @@ window.PORTFOLIO_DATA = {
         "image": "assets/zerogate-hero.webp",
         "logo": "assets/zerogate-logo.webp",
         "details": [
+          "직급 : 팀원",
           "역할 : 기획 및 개발",
-          "진행 업무 : 전투, 캐릭터 디자인, 레벨 디자인 상위문서,",
-          "던전 테마(구조) 기획서 작성",
-          "문서 레이아웃, 비주얼 가이드, 캐릭터 디자인 가이드 작성"
+          "담당 업무 : 전투, 레벨디자인 기획, 디자인 가이드 제작, 3D 모델링 제작"
         ]
       }
     ]
