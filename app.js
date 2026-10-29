@@ -78,7 +78,7 @@
         <div class="hero-backdrop" aria-hidden="true"></div>
         <div class="hero-content">
           <p class="eyebrow">${escapeHTML(data.hero.eyebrow)}</p>
-          <h1 id="hero-title">${escapeHTML(data.hero.firstLine)}<br><span>${escapeHTML(data.hero.highlight)}</span> ${escapeHTML(data.hero.lastWord)}</h1>
+          <h1 id="hero-title">${data.hero.firstLine ? `${escapeHTML(data.hero.firstLine)}<br>` : ""}<span>${escapeHTML(data.hero.highlight)}</span> ${escapeHTML(data.hero.lastWord)}</h1>
           <p class="hero-copy">${escapeHTML(data.hero.description)}</p>
           <div class="hero-actions">
             <a class="button primary" href="#story">소개 읽기 <b aria-hidden="true">↘</b></a>
