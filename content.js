@@ -8,9 +8,9 @@ window.PORTFOLIO_DATA = {
   },
   "hero": {
     "eyebrow": "GAME PLANNER · PORTFOLIO",
-    "firstLine": "",
-    "highlight": "설명서형",
-    "lastWord": "기획자",
+    "firstLine": "저는",
+    "highlight": "마당쇠",
+    "lastWord": "기획자 입니다",
     "description": "느릴지언정 멈추진 않습니다. 끝까지 나아가는 게임 기획자의 기록입니다."
   },
   "story": {
