@@ -76,7 +76,7 @@
 
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-slides" aria-hidden="true">
-          ${data.hero.slides.map((slide, index) => `<div class="hero-slide${index === 0 ? " is-active" : ""}" data-hero-slide="${index}"></div>`).join("")}
+          ${data.hero.slides.map((slide, index) => `<div class="hero-slide${index === 0 ? " is-active" : ""}" data-hero-slide="${index}">${slide.video ? `<video src="${escapeHTML(slide.video)}" poster="${escapeHTML(slide.image)}" autoplay muted loop playsinline preload="auto"></video>` : ""}</div>`).join("")}
         </div>
         <div class="hero-captions">
           ${data.hero.slides.map((slide, index) => `

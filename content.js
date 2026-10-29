@@ -14,7 +14,8 @@ window.PORTFOLIO_DATA = {
     "slides": [
       {
         "title": "제로 게이트",
-        "image": "assets/zerogate-hero.webp",
+        "image": "assets/zerogate-hero-poster.webp",
+        "video": "assets/zerogate-hero.mp4",
         "logo": "assets/zerogate-logo.webp",
         "details": [
           "직급 : 팀원",
