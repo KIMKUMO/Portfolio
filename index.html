@@ -90,11 +90,14 @@
     .history-heading { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px; }
     .history-heading h2 { margin-top: 8px; }
     .range { display: inline-flex; align-items: center; min-height: 32px; padding: 4px 13px; border: 1px solid var(--hairline); border-radius: 999px; background: var(--pebble); font-size: 14px; font-weight: 740; font-variant-numeric: tabular-nums; }
-    .milestones { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); margin: 32px 0 0; padding: 0; list-style: none; }
-    .milestones li { position: relative; display: grid; align-content: start; gap: 8px; padding: 19px clamp(8px, 1.5vw, 20px) 0 0; border-top: 1px solid var(--hairline); }
-    .milestones li::before { content: ''; position: absolute; top: -5px; left: 0; width: 9px; height: 9px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 3px var(--paper); }
+    .milestones { position: relative; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); grid-template-rows: auto 16px auto; grid-auto-flow: column; margin: 32px 0 0; padding: 0; list-style: none; }
+    .milestones::before { content: ''; position: absolute; grid-area: 2 / 1 / 3 / -1; inset: calc(50% - .5px) 0 auto 4px; height: 1px; background: var(--hairline); }
+    .milestones li { display: grid; grid-row: 1 / -1; grid-template-rows: subgrid; min-width: 0; padding-inline-end: clamp(8px, 1.45vw, 18px); }
+    .milestones li::before { content: ''; z-index: 1; grid-row: 2; align-self: center; width: 9px; height: 9px; border-radius: 50%; background: var(--blue); box-shadow: 0 0 0 3px var(--paper); }
+    .milestone-copy { display: grid; grid-row: 3; align-self: start; gap: 6px; padding-top: 10px; }
+    .milestone-above .milestone-copy { grid-row: 1; align-self: end; padding: 0 0 10px; }
     .milestones time { color: var(--cobalt); font-size: 20px; line-height: 1.2; font-weight: 760; font-variant-numeric: tabular-nums; }
-    .milestones h3 { margin-bottom: 5px; font-size: clamp(17px, 1.7vw, 24px); }
+    .milestones h3 { margin-bottom: 5px; font-size: clamp(17px, 1.65vw, 24px); }
     .milestones p { max-width: 17em; font-size: 14px; line-height: 1.55; }
 
     .case-section { padding-block: var(--section); }
@@ -116,6 +119,18 @@
     .footer-inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px 16px; min-height: 72px; padding-block: 8px; font-size: 13px; }
     .footer-inner a { display: inline-flex; align-items: center; min-height: 44px; text-underline-offset: 4px; }
 
+    @media (max-width: 899px) {
+      .milestones { grid-template-columns: 1fr; grid-template-rows: none; grid-auto-flow: row; gap: 16px; margin-top: 24px; }
+      .milestones::before { grid-area: auto; inset: 9px auto 0 calc(50% - .5px); width: 1px; height: auto; }
+      .milestones li { grid-row: auto; grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr); grid-template-rows: auto; padding: 0; }
+      .milestones li::before { grid-area: 1 / 2; justify-self: center; align-self: start; margin-top: 6px; }
+      .milestone-copy { grid-area: 1 / 3; padding: 0; }
+      .milestone-above .milestone-copy { grid-area: 1 / 1; align-self: start; padding: 0; text-align: right; }
+      .milestones time { font-size: 17px; }
+      .milestones h3 { margin-bottom: 3px; font-size: 17px; }
+      .milestones p { max-width: none; }
+    }
+
     @media (max-width: 760px) {
       .header-inner { grid-template-columns: 1fr auto; }
       .header-inner .button-secondary { display: none; }
@@ -123,13 +138,6 @@
       .hero-copy { gap: 12px; }
       .hero-visual { width: min(100% - 8px, 560px); }
       .hero-visual::after { right: -12px; }
-      .milestones { grid-template-columns: 1fr; margin: 23px 0 0 4px; }
-      .milestones li { grid-template-columns: 57px minmax(0,1fr); align-items: baseline; gap: 10px; padding: 0 0 16px 14px; border-top: 0; border-left: 1px solid var(--hairline); }
-      .milestones li:last-child { padding-bottom: 0; }
-      .milestones li::before { top: 5px; left: -5px; }
-      .milestones time { font-size: 17px; }
-      .milestones h3 { margin-bottom: 3px; font-size: 17px; }
-      .milestones p { max-width: none; }
       .case-panel { grid-template-columns: 1fr; }
     }
 
@@ -193,11 +201,12 @@
           <span class="range">2017–2026</span>
         </div>
         <ol class="milestones">
-          <li><time datetime="2017">2017</time><div><h3>첫 팀 프로젝트</h3><p>프로그래밍 L 팀장을 맡아 프로젝트 완주</p></div></li>
-          <li><time datetime="2020">2020</time><div><h3>Unity 개발 학습</h3><p>Unity 기반 게임 개발과 기획 교육 수강</p></div></li>
-          <li><time datetime="2024">2024</time><div><h3>보드게임 현장 시연</h3><p>이미테이션 게임 규칙 설계와 행사 시연</p></div></li>
-          <li><time datetime="2025">2025</time><div><h3>기획 기본기</h3><p>게임 기획 과정 수강</p></div></li>
-          <li><time datetime="2026">2026</time><div><h3>AI와 게임 기획</h3><p>AI를 활용한 게임 기획 과정 수강</p></div></li>
+          <li><div class="milestone-copy"><time datetime="2017">2017</time><div><h3>첫 팀 프로젝트</h3><p>팀장을 맡아 팀을 이끌고 프로젝트 완주</p></div></div></li>
+          <li class="milestone-above"><div class="milestone-copy"><time datetime="2020">2020</time><div><h3>SBS 게임 아카데미</h3><p>Unity를 활용한 2D·3D 게임 개발 및 기획 과정 수강</p></div></div></li>
+          <li><div class="milestone-copy"><time datetime="2023">2023</time><div><h3>보드게임 페스타</h3><p>처음으로 게임을 개발해 오프라인 행사에 참여</p></div></div></li>
+          <li><div class="milestone-copy"><time datetime="2024">2024</time><div><h3>보드게임 콘</h3><p>다시 팀장을 맡아 게임 개발부터 유저 응대까지 진행</p></div></div></li>
+          <li class="milestone-above"><div class="milestone-copy"><time datetime="2025">2025</time><div><h3>아텐츠 게임 아카데미</h3><p>게임 기획 기초 과정 수강</p></div></div></li>
+          <li class="milestone-above"><div class="milestone-copy"><time datetime="2026">2026</time><div><h3>디벨로켓</h3><p>게임 기획자 업무 과정 수강</p></div></div></li>
         </ol>
       </div>
     </section>
