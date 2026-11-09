@@ -9,16 +9,48 @@
     if (section === "main") location.replace("index.html" + location.hash);
   </script>
   <link rel="stylesheet" href="styles.css?v=29">
+  <link rel="stylesheet" href="site-theme.css?v=1">
+  <link rel="stylesheet" href="detail-theme.css?v=1">
 </head>
 <body>
+  <a class="skip" href="#main">본문 바로가기</a>
+  <header class="site-head">
+    <div class="wrap header-inner">
+      <a class="site-brand" href="index.html" aria-label="김재원 포트폴리오 첫 화면">
+        <span class="site-brand-mark" aria-hidden="true">JW</span>
+        <span><strong>김재원</strong><small>GAME PLANNER</small></span>
+      </a>
+      <nav aria-label="주요 메뉴">
+        <a href="index.html#intro">소개</a><a href="index.html#history">연혁</a><a href="index.html#zero-gate">대표 작업</a>
+        <details class="more-nav">
+          <summary>더 보기</summary>
+          <ul>
+            <li><a href="page.html?section=resume">이력서</a></li>
+            <li><a href="page.html?section=experience">프로젝트 경험</a></li>
+            <li><a href="page.html?section=portfolio">포트폴리오</a></li>
+            <li><a href="page.html?section=hobby">취미</a></li>
+          </ul>
+        </details>
+      </nav>
+      <a class="site-button site-button-secondary" href="index.html">메인으로 <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
   <div id="app"></div>
+  <footer class="detail-footer">
+    <div class="wrap"><p>김재원 · 게임 기획자</p><a href="index.html">메인으로 돌아가기 <span aria-hidden="true">↗</span></a></div>
+  </footer>
   <script src="content.js?v=29"></script>
   <script src="app.js?v=27"></script>
   <script>
     document.querySelectorAll("#app main > section, #app main > footer").forEach(element => {
       const id = element.id || "footer";
-      element.style.display = id === section ? "" : "none";
+      element.hidden = id !== section;
     });
+    const activeLink = [...document.querySelectorAll(".more-nav a")].find(link => link.search === `?section=${section}`);
+    if (activeLink) {
+      activeLink.setAttribute("aria-current", "page");
+      document.title = `${activeLink.textContent} · 김재원`;
+    }
   </script>
 </body>
 </html>
