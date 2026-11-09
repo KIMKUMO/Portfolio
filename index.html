@@ -51,17 +51,18 @@
     .milestones p { max-width: 17em; font-size: 14px; line-height: 1.55; }
 
     .case-section { padding-block: var(--section); }
-    .case-panel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 24px clamp(18px, 4vw, 48px); padding: clamp(20px, 4.5vw, 52px); border: 1px solid var(--hairline); border-radius: 24px; background: var(--paper); box-shadow: var(--elevation); }
-    .case-intro { display: grid; justify-items: start; gap: 10px; }
-    .case-intro p { max-width: 25em; }
-    .responsibilities { margin: 0; border-top: 1px solid var(--hairline); }
+    .case-panel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: 24px clamp(18px, 4vw, 48px); padding: clamp(20px, 3.3vw, 40px); border: 1px solid var(--hairline); border-radius: 24px; background: var(--paper); box-shadow: var(--elevation); }
+    .case-media { display: grid; justify-items: start; gap: 12px; }
+    .case-logo { width: min(100%, 460px); }
+    .case-copy { display: grid; gap: 10px; }
+    .responsibilities { margin: 12px 0 0; border-top: 1px solid var(--hairline); }
     .responsibilities > div { display: grid; grid-template-columns: minmax(64px, .35fr) minmax(0, 1fr); align-items: baseline; gap: 8px; padding: 13px 0; border-bottom: 1px solid var(--hairline); }
     .responsibilities dt { font-weight: 760; }
     .responsibilities dd { margin: 0; color: var(--slate); }
-    .play-video { grid-column: 1 / -1; }
+    .play-video { width: 100%; }
     .play-video summary { width: fit-content; min-height: 44px; padding: 10px 13px; border: 1px solid var(--hairline); border-radius: 8px; color: var(--navy); cursor: pointer; font-weight: 720; }
     .play-video summary:hover { background: var(--pebble); }
-    .play-video video { display: block; width: min(100%, 800px); margin: 16px auto 0; border-radius: 8px; }
+    .play-video video { display: block; width: 100%; margin-top: 16px; border-radius: 8px; }
     .story { display: grid; gap: 10px; padding-bottom: var(--section); }
     .story h2 { font-size: clamp(25px, 3vw, 38px); }
     .site-foot { border-top: 1px solid var(--hairline); }
@@ -180,23 +181,25 @@
 
     <section class="case-section wrap" id="zero-gate" aria-labelledby="case-title">
       <div class="case-panel">
-        <div class="case-intro">
-          <div class="kicker">CASE STUDY</div>
+        <div class="case-media">
+          <img class="case-logo" src="assets/zerogate-hunters-logo.png" width="1808" height="870" alt="제로 게이트 헌터스 로고" loading="lazy" decoding="async">
+          <details class="play-video">
+            <summary>플레이 영상 보기</summary>
+            <video controls playsinline preload="none" poster="assets/zerogate-hero-poster.webp" aria-label="제로 게이트 전투 플레이 영상">
+              <source src="assets/zerogate-hero.mp4" type="video/mp4">
+              <a href="assets/zerogate-hero.mp4">제로 게이트 영상 파일 열기</a>
+            </video>
+          </details>
+        </div>
+        <div class="case-copy">
           <h2 id="case-title">제로 게이트</h2>
           <p>팀원으로 참여해 전투와 레벨을 설계하고, 디자인 가이드와 3D 모델을 제작했습니다.</p>
+          <dl class="responsibilities">
+            <div><dt>역할</dt><dd>기획 및 개발</dd></div>
+            <div><dt>설계</dt><dd>전투 기획 · 레벨 디자인</dd></div>
+            <div><dt>제작</dt><dd>디자인 가이드 · 3D 모델링</dd></div>
+          </dl>
         </div>
-        <dl class="responsibilities">
-          <div><dt>역할</dt><dd>기획 및 개발</dd></div>
-          <div><dt>설계</dt><dd>전투 기획 · 레벨 디자인</dd></div>
-          <div><dt>제작</dt><dd>디자인 가이드 · 3D 모델링</dd></div>
-        </dl>
-        <details class="play-video">
-          <summary>플레이 영상 보기</summary>
-          <video controls playsinline preload="none" poster="assets/zerogate-hero-poster.webp" aria-label="제로 게이트 전투 플레이 영상">
-            <source src="assets/zerogate-hero.mp4" type="video/mp4">
-            <a href="assets/zerogate-hero.mp4">제로 게이트 영상 파일 열기</a>
-          </video>
-        </details>
       </div>
     </section>
 
