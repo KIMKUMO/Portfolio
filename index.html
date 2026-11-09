@@ -19,7 +19,7 @@
     .hero-visual::before, .hero-visual::after { content: ''; position: absolute; z-index: -1; filter: blur(22px); opacity: .39; pointer-events: none; }
     .hero-visual::before { left: -18px; bottom: -11px; width: 38%; height: 42%; border-radius: 53% 47% 63% 37%; background: var(--pink); transform: rotate(-17deg); }
     .hero-visual::after { right: -22px; top: -15px; width: 35%; height: 49%; border-radius: 35% 65% 58% 42%; background: var(--cyan); transform: rotate(22deg); }
-    .preview-frame { overflow: hidden; border: 1px solid var(--hairline); border-radius: 16px; background: var(--paper); box-shadow: var(--elevation); }
+    .preview-frame, .case-frame { overflow: hidden; border: 1px solid var(--hairline); border-radius: 16px; background: var(--paper); box-shadow: var(--elevation); }
     .project-track { display: grid; grid-auto-flow: column; grid-auto-columns: 100%; transform: translateX(calc(-100% * var(--project-index, 0))); transition: transform 260ms ease; }
     .preview { display: flex; flex-direction: column; min-width: 0; }
     .preview-label { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px 12px; padding: 12px 16px; }
@@ -50,9 +50,10 @@
     .milestones h3 { margin-bottom: 5px; font-size: clamp(17px, 1.65vw, 24px); }
     .milestones p { max-width: 17em; font-size: 14px; line-height: 1.55; }
 
-    .case-section { padding-block: var(--section); }
-    .case-panel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: 24px clamp(18px, 4vw, 48px); padding: clamp(20px, 3.3vw, 40px); border: 1px solid var(--hairline); border-radius: 24px; background: var(--paper); box-shadow: var(--elevation); }
-    .case-media { display: grid; justify-items: start; gap: 12px; }
+    .case-section { position: relative; isolation: isolate; padding-block: var(--section); }
+    .case-frame { border-radius: 24px; }
+    .case-panel { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-content: start; align-items: start; gap: 24px clamp(18px, 4vw, 48px); padding: clamp(20px, 3.3vw, 40px); }
+    .case-media { display: grid; align-self: center; justify-items: start; gap: 12px; }
     .case-logo { width: min(100%, 460px); }
     .case-copy { display: grid; gap: 10px; }
     .responsibilities { margin: 12px 0 0; border-top: 1px solid var(--hairline); }
@@ -138,17 +139,17 @@
             <figure class="preview">
               <div class="preview-label kicker"><span>SELECTED PROJECT</span><span>전투 플레이 · 1 / 3</span></div>
               <img src="assets/zerogate-hero-poster.webp" width="1600" height="900" alt="제로 게이트에서 캐릭터가 격자형 전투 구역의 로봇과 마주한 실제 플레이 화면">
-              <figcaption><strong>제로 게이트</strong><span>전투 기획 · 레벨 디자인</span></figcaption>
+              <figcaption><strong data-project-title>제로 게이트</strong><span>전투 기획 · 레벨 디자인</span></figcaption>
             </figure>
-            <figure class="preview" aria-hidden="true">
+            <figure class="preview" aria-hidden="true" inert>
               <div class="preview-label kicker"><span>SELECTED PROJECT</span><span>전투 플레이 · 2 / 3</span></div>
               <img src="assets/comstock-gameplay.png" width="1323" height="746" alt="컴스톡에서 캐릭터가 여러 몬스터를 상대하는 전투 플레이 화면">
-              <figcaption><strong>컴스톡</strong><span>전투 기획 · 컨텐츠 세부 기획</span></figcaption>
+              <figcaption><strong data-project-title>컴스톡</strong><span>전투 기획 · 컨텐츠 세부 기획</span></figcaption>
             </figure>
-            <figure class="preview" aria-hidden="true">
+            <figure class="preview" aria-hidden="true" inert>
               <div class="preview-label kicker"><span>SELECTED PROJECT</span><span>추리 플레이 · 3 / 3</span></div>
               <img class="project-image-contained" src="assets/imitation-game-gameplay.png" width="1238" height="756" alt="이미테이션 게임의 플레이 화면으로, 내 신분과 심문 기록, 상대 정보가 나란히 표시되어 있습니다.">
-              <figcaption><strong>이미테이션 게임</strong><span>컨셉 · 컨텐츠 · 시스템 기획, 개발, QA</span></figcaption>
+              <figcaption><strong data-project-title>이미테이션 게임</strong><span>컨셉 · 컨텐츠 · 시스템 기획, 개발, QA</span></figcaption>
             </figure>
           </div>
         </div>
@@ -179,28 +180,52 @@
       </div>
     </section>
 
-    <section class="case-section wrap" id="zero-gate" aria-labelledby="case-title">
-      <div class="case-panel">
-        <div class="case-media">
-          <img class="case-logo" src="assets/zerogate-hunters-logo.png" width="1808" height="870" alt="제로 게이트 헌터스 로고" loading="lazy" decoding="async">
-          <details class="play-video">
-            <summary>플레이 영상 보기</summary>
-            <video controls playsinline preload="none" poster="assets/zerogate-hero-poster.webp" aria-label="제로 게이트 전투 플레이 영상">
-              <source src="assets/zerogate-hero.mp4" type="video/mp4">
-              <a href="assets/zerogate-hero.mp4">제로 게이트 영상 파일 열기</a>
-            </video>
-          </details>
-        </div>
-        <div class="case-copy">
-          <h2 id="case-title">제로 게이트</h2>
-          <p>팀원으로 참여해 전투와 레벨을 설계하고, 디자인 가이드와 3D 모델을 제작했습니다.</p>
-          <dl class="responsibilities">
-            <div><dt>역할</dt><dd>기획 및 개발</dd></div>
-            <div><dt>기획</dt><dd>전투 기획, 캐릭터 기획, 레벨 디자인, 던전 기획, 비주얼 가이드</dd></div>
-            <div><dt>개발</dt><dd>3D 모델링, PV</dd></div>
-          </dl>
+    <section class="case-section wrap" id="zero-gate" data-project-carousel aria-label="대표 프로젝트 상세">
+      <div class="case-frame">
+        <div class="project-track" id="project-details">
+          <article class="case-panel">
+            <div class="case-media">
+              <img class="case-logo" src="assets/zerogate-hunters-logo.png" width="1808" height="870" alt="제로 게이트 헌터스 로고" loading="lazy" decoding="async">
+              <details class="play-video">
+                <summary>플레이 영상 보기</summary>
+                <video controls playsinline preload="none" poster="assets/zerogate-hero-poster.webp" aria-label="제로 게이트 전투 플레이 영상">
+                  <source src="assets/zerogate-hero.mp4" type="video/mp4">
+                  <a href="assets/zerogate-hero.mp4">제로 게이트 영상 파일 열기</a>
+                </video>
+              </details>
+            </div>
+            <div class="case-copy">
+              <h2 id="case-title" data-project-title>제로 게이트</h2>
+              <p>팀원으로 참여해 전투와 레벨을 설계하고, 디자인 가이드와 3D 모델을 제작했습니다.</p>
+              <dl class="responsibilities">
+                <div><dt>역할</dt><dd>기획 및 개발</dd></div>
+                <div><dt>기획</dt><dd>전투 기획, 캐릭터 기획, 레벨 디자인, 던전 기획, 비주얼 가이드</dd></div>
+                <div><dt>개발</dt><dd>3D 모델링, PV</dd></div>
+              </dl>
+            </div>
+          </article>
+          <article class="case-panel" aria-hidden="true" inert>
+            <div class="case-media">
+              <img class="case-logo" src="assets/comstock-logo.png" width="2115" height="643" alt="컴스톡 로고" loading="lazy" decoding="async">
+            </div>
+            <div class="case-copy">
+              <h2 data-project-title>컴스톡</h2>
+              <dl class="responsibilities">
+                <div><dt>역할</dt><dd>기획 및 개발</dd></div>
+                <div><dt>기획</dt><dd>전투 기획, 컨텐츠 세부 기획</dd></div>
+                <div><dt>개발</dt><dd>버티컬 슬라이스 제작, PV, 마케팅 영상</dd></div>
+              </dl>
+            </div>
+          </article>
         </div>
       </div>
+      <button class="project-arrow project-arrow-prev" type="button" data-project-direction="-1" aria-label="이전 프로젝트 상세" aria-controls="project-details" hidden>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>
+      </button>
+      <button class="project-arrow project-arrow-next" type="button" data-project-direction="1" aria-label="다음 프로젝트 상세" aria-controls="project-details" hidden>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+      </button>
+      <span class="project-status" role="status"></span>
     </section>
 
     <section class="story wrap" id="story" aria-labelledby="story-title">
@@ -212,18 +237,24 @@
 
   <footer class="site-foot"><div class="wrap footer-inner"><p>김재원 · 게임 기획자</p><a href="#intro">맨 위로 <span aria-hidden="true">↑</span></a></div></footer>
   <script>
-    (() => {
-      const carousel = document.querySelector('[data-project-carousel]');
+    document.querySelectorAll('[data-project-carousel]').forEach(carousel => {
       const track = carousel.querySelector('.project-track');
-      const slides = [...track.querySelectorAll('.preview')];
+      const slides = [...track.children];
       const status = carousel.querySelector('.project-status');
       let active = 0;
 
       const move = direction => {
+        slides[active].querySelectorAll('.play-video').forEach(player => {
+          player.querySelector('video').pause();
+          player.open = false;
+        });
         active = (active + direction + slides.length) % slides.length;
         track.style.setProperty('--project-index', active);
-        slides.forEach((slide, index) => slide.setAttribute('aria-hidden', String(index !== active)));
-        status.textContent = `${slides[active].querySelector('figcaption strong').textContent}, ${active + 1} / ${slides.length}`;
+        slides.forEach((slide, index) => {
+          slide.inert = index !== active;
+          slide.setAttribute('aria-hidden', String(slide.inert));
+        });
+        status.textContent = `${slides[active].querySelector('[data-project-title]').textContent}, ${active + 1} / ${slides.length}`;
       };
 
       carousel.querySelectorAll('[data-project-direction]').forEach(button => {
@@ -231,11 +262,11 @@
         button.hidden = false;
       });
       carousel.addEventListener('keydown', event => {
-        if (event.altKey || event.ctrlKey || event.metaKey || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+        if (!event.target.closest('[data-project-direction]') || event.altKey || event.ctrlKey || event.metaKey || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
         event.preventDefault();
         move(event.key === 'ArrowRight' ? 1 : -1);
       });
-    })();
+    });
   </script>
 </body>
 </html>
