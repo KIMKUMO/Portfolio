@@ -78,13 +78,21 @@
     .hero-visual::before, .hero-visual::after { content: ''; position: absolute; z-index: -1; filter: blur(22px); opacity: .39; pointer-events: none; }
     .hero-visual::before { left: -18px; bottom: -11px; width: 38%; height: 42%; border-radius: 53% 47% 63% 37%; background: var(--pink); transform: rotate(-17deg); }
     .hero-visual::after { right: -22px; top: -15px; width: 35%; height: 49%; border-radius: 35% 65% 58% 42%; background: var(--cyan); transform: rotate(22deg); }
-    .preview { overflow: hidden; border: 1px solid var(--hairline); border-radius: 16px; background: var(--paper); box-shadow: var(--elevation); }
+    .preview-frame { overflow: hidden; border: 1px solid var(--hairline); border-radius: 16px; background: var(--paper); box-shadow: var(--elevation); }
+    .project-track { display: grid; grid-auto-flow: column; grid-auto-columns: 100%; transform: translateX(calc(-100% * var(--project-index, 0))); transition: transform 260ms ease; }
+    .preview { display: flex; flex-direction: column; min-width: 0; }
     .preview-label { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 4px 12px; padding: 12px 16px; }
     .preview-label span:last-child { color: var(--slate); }
     .preview img { aspect-ratio: 16 / 9; object-fit: cover; background: var(--pebble); }
-    .preview figcaption { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px 16px; padding: 12px 16px 14px; }
+    .preview figcaption { display: flex; flex: 1; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 4px 16px; padding: 12px 16px 14px; }
     .preview figcaption strong { font-size: clamp(18px, 2.05vw, 26px); letter-spacing: -.045em; }
     .preview figcaption span { color: var(--slate); font-size: 13px; }
+    .project-arrow { position: absolute; z-index: 1; top: 50%; display: grid; place-items: center; width: 44px; height: 44px; padding: 0; transform: translateY(-50%); border: 1px solid var(--hairline); border-radius: 50%; background: var(--paper); color: var(--navy); box-shadow: var(--elevation); cursor: pointer; }
+    .project-arrow[hidden] { display: none; }
+    .project-arrow:hover { border-color: var(--blue); color: var(--cobalt); }
+    .project-arrow-prev { left: -18px; }
+    .project-arrow-next { right: -18px; }
+    .project-status { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
     .history { padding-block: var(--section); border-block: 1px solid var(--hairline); background: var(--paper); }
     .history-heading { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px; }
@@ -138,6 +146,8 @@
       .hero-copy { gap: 12px; }
       .hero-visual { width: min(100% - 8px, 560px); }
       .hero-visual::after { right: -12px; }
+      .project-arrow-prev { left: -8px; }
+      .project-arrow-next { right: -8px; }
       .case-panel { grid-template-columns: 1fr; }
     }
 
@@ -151,7 +161,10 @@
       .preview-label, .preview figcaption { padding-inline: 11px; }
     }
 
-    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .project-track { transition: none; }
+    }
   </style>
 </head>
 <body>
@@ -185,12 +198,28 @@
         <h1 id="intro-title">끝까지 만드는<br>게임 기획자.</h1>
         <p>팀 프로젝트를 이끌고, 직접 게임을 만들고 시연하며 기획을 배워왔습니다.</p>
       </div>
-      <div class="hero-visual">
-        <figure class="preview">
-          <div class="preview-label kicker"><span>SELECTED PROJECT</span><span>전투 플레이</span></div>
-          <img src="assets/zerogate-hero-poster.webp" width="1600" height="900" alt="제로 게이트에서 캐릭터가 격자형 전투 구역의 로봇과 마주한 실제 플레이 화면">
-          <figcaption><strong>제로 게이트</strong><span>전투 기획 · 레벨 디자인</span></figcaption>
-        </figure>
+      <div class="hero-visual" data-project-carousel role="group" aria-label="대표 프로젝트 미리보기">
+        <div class="preview-frame">
+          <div class="project-track" id="project-previews">
+            <figure class="preview">
+              <div class="preview-label kicker"><span>SELECTED PROJECT</span><span>전투 플레이 · 1 / 2</span></div>
+              <img src="assets/zerogate-hero-poster.webp" width="1600" height="900" alt="제로 게이트에서 캐릭터가 격자형 전투 구역의 로봇과 마주한 실제 플레이 화면">
+              <figcaption><strong>제로 게이트</strong><span>전투 기획 · 레벨 디자인</span></figcaption>
+            </figure>
+            <figure class="preview" aria-hidden="true">
+              <div class="preview-label kicker"><span>SELECTED PROJECT</span><span>전투 플레이 · 2 / 2</span></div>
+              <img src="assets/comstock-gameplay.png" width="1323" height="746" alt="컴스톡에서 캐릭터가 여러 몬스터를 상대하는 전투 플레이 화면">
+              <figcaption><strong>컴스톡</strong><span>전투 기획 · 컨텐츠 세부 기획</span></figcaption>
+            </figure>
+          </div>
+        </div>
+        <button class="project-arrow project-arrow-prev" type="button" data-project-direction="-1" aria-label="이전 프로젝트" aria-controls="project-previews" hidden>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg>
+        </button>
+        <button class="project-arrow project-arrow-next" type="button" data-project-direction="1" aria-label="다음 프로젝트" aria-controls="project-previews" hidden>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+        </button>
+        <span class="project-status" role="status"></span>
       </div>
     </section>
 
@@ -241,5 +270,31 @@
   </main>
 
   <footer class="site-foot"><div class="wrap footer-inner"><p>김재원 · 게임 기획자</p><a href="#intro">맨 위로 <span aria-hidden="true">↑</span></a></div></footer>
+  <script>
+    (() => {
+      const carousel = document.querySelector('[data-project-carousel]');
+      const track = carousel.querySelector('.project-track');
+      const slides = [...track.querySelectorAll('.preview')];
+      const status = carousel.querySelector('.project-status');
+      let active = 0;
+
+      const move = direction => {
+        active = (active + direction + slides.length) % slides.length;
+        track.style.setProperty('--project-index', active);
+        slides.forEach((slide, index) => slide.setAttribute('aria-hidden', String(index !== active)));
+        status.textContent = `${slides[active].querySelector('figcaption strong').textContent}, ${active + 1} / ${slides.length}`;
+      };
+
+      carousel.querySelectorAll('[data-project-direction]').forEach(button => {
+        button.addEventListener('click', () => move(Number(button.dataset.projectDirection)));
+        button.hidden = false;
+      });
+      carousel.addEventListener('keydown', event => {
+        if (event.altKey || event.ctrlKey || event.metaKey || !['ArrowLeft', 'ArrowRight'].includes(event.key)) return;
+        event.preventDefault();
+        move(event.key === 'ArrowRight' ? 1 : -1);
+      });
+    })();
+  </script>
 </body>
 </html>
