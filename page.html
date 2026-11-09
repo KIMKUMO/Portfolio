@@ -1,1 +1,24 @@
-<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Portfolio</title><link rel="stylesheet" href="styles.css?v=29"></head><body><div id="app"></div><script src="content.js?v=29"></script><script src="app.js?v=27"></script><script>const s=new URLSearchParams(location.search).get("section")||"main";document.querySelectorAll("#app main>section,#app main>footer").forEach(el=>{const id=el.id||"footer";el.style.display=s==="main"?(el.classList.contains("hero")||id==="story"?"":"none"):(id===s?"":"none")});</script></body></html>  
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Portfolio</title>
+  <script>
+    const section = new URLSearchParams(location.search).get("section") || "main";
+    if (section === "main") location.replace("index.html" + location.hash);
+  </script>
+  <link rel="stylesheet" href="styles.css?v=29">
+</head>
+<body>
+  <div id="app"></div>
+  <script src="content.js?v=29"></script>
+  <script src="app.js?v=27"></script>
+  <script>
+    document.querySelectorAll("#app main > section, #app main > footer").forEach(element => {
+      const id = element.id || "footer";
+      element.style.display = id === section ? "" : "none";
+    });
+  </script>
+</body>
+</html>
