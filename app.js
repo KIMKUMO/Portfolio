@@ -39,6 +39,41 @@
     ${item.meta && item.meta !== "숙련도 또는 사용 기간" ? `<p class="resume-meta">${escapeHTML(item.meta)}</p>` : ""}
     ${item.description ? `<p class="resume-item-description">${escapeHTML(item.description)}</p>` : ""}`;
 
+  const projectGalleryItems = (items) => {
+    const defaults = window.DEFAULT_PORTFOLIO_DATA.projects.items;
+    if (!Array.isArray(items)) return defaults;
+    const savedByTitle = new Map(items.map((item) => [item.title, item]));
+    const defaultTitles = new Set(defaults.map((item) => item.title));
+    const updated = defaults.map((item) => {
+      const saved = savedByTitle.get(item.title);
+      return saved ? { ...item, ...saved, details: { ...item.details, ...saved.details } } : item;
+    });
+    return updated.concat(items.filter((item) => !defaultTitles.has(item.title)));
+  };
+
+  const projectGalleryCard = (item) => {
+    const details = item.details || {};
+    const facts = [
+      ["기획", details.planning],
+      ["개발", details.development],
+      ["담당 업무", Array.isArray(details.tasks) ? details.tasks.filter(Boolean).join(" · ") : ""],
+      ["결과", details.result || item.keyExperience || item.CoreExperience],
+      ["회고", details.lesson]
+    ].filter(([, value]) => value);
+
+    return `
+      <article class="experience-card glow-card${item.image ? "" : " experience-card-text"}">
+        ${item.image ? `<img class="experience-image${item.imageFit === "contain" ? " experience-image-contained" : ""}" src="${escapeHTML(item.image)}" alt="${escapeHTML(item.title)} 플레이 화면" loading="lazy" decoding="async">` : ""}
+        <div class="experience-copy">
+          ${item.role ? `<p class="experience-role">${escapeHTML(item.role)}</p>` : ""}
+          <h3>${escapeHTML(item.title)}</h3>
+          <p class="experience-summary">${escapeHTML(item.description || details.overview || item.keyExperience || item.CoreExperience)}</p>
+          ${facts.length ? `<dl class="experience-facts">${facts.map(([label, value]) => `
+            <div><dt>${label}</dt><dd>${escapeHTML(value)}</dd></div>`).join("")}</dl>` : ""}
+        </div>
+      </article>`;
+  };
+
   const portfolioCard = (item, index) => {
     const tag = item.link ? "a" : "article";
     const link = item.link ? ` href="${escapeHTML(item.link)}" target="_blank" rel="noopener"` : "";
@@ -173,15 +208,8 @@
           <div><p class="eyebrow">02 · PROJECT EXPERIENCE</p><h2 id="experience-title">프로젝트 경험</h2></div>
           <p>${escapeHTML(data.projects.intro)}</p>
         </header>
-        <div class="project-grid">
-          ${data.projects.items.map((item, index) => `
-            <button type="button" class="project-card glow-card" data-project-index="${index}" aria-haspopup="dialog" aria-label="${escapeHTML(item.title)} 상세 설명 보기">
-              <div class="card-top"><span class="status-badge ${escapeHTML(item.tone)}">${escapeHTML(item.badge)}</span><span>${pad(index)} / ${String(data.projects.items.length).padStart(2, "0")}</span></div>
-              <div class="project-title"><p>${escapeHTML(item.role)}</p><h3>${escapeHTML(item.title)}</h3></div>
-              <p>${escapeHTML(item.description)}</p>
-              <div class="project-result"><span>KEY EXPERIENCE</span><p>${escapeHTML(item.keyExperience || item.CoreExperience)}</p></div>
-              <span class="project-card-cue">상세 보기 <b aria-hidden="true">↗</b></span>
-            </button>`).join("")}
+        <div class="experience-gallery">
+          ${projectGalleryItems(data.projects.items).map(projectGalleryCard).join("")}
         </div>
       </section>
 
@@ -215,7 +243,6 @@
         </address>
         <p class="copyright">${escapeHTML(data.site.copyright)}</p>
       </footer>
-      <div class="project-modal" data-project-modal hidden></div>
       <div class="hobby-modal" data-hobby-modal hidden></div>
     </main>`;
 
@@ -229,10 +256,7 @@
 
   root.addEventListener("click", (event) => {
     const close = event.target.closest("[data-quick-close]");
-    if (close) { const modal = close.closest(".project-modal,.hobby-modal"); if (modal) { modal.hidden = true; modal.innerHTML = ""; } return; }
-        const item = data.portfolio.items[Number(element.dataset.portfolioImage)];  
-    const projectButton = event.target.closest("[data-project-index]");  
-    if (projectButton) { const item=window.PORTFOLIO_DATA.projects.items[Number(projectButton.dataset.projectIndex)]; const modal=root.querySelector("[data-project-modal]"); if(item&&modal){modal.innerHTML=`<div class="project-modal-backdrop" data-quick-close></div><article class="project-modal-dialog" role="dialog"><button class="project-modal-close" data-quick-close>×</button><h3>${escapeHTML(item.title)}</h3><div class="project-modal-content"><section><span>PROJECT OVERVIEW</span><p>${escapeHTML(item.details?.overview||item.description)}</p></section><section><span>RESULT</span><p>${escapeHTML(item.details?.result||item.keyExperience)}</p></section></div></article>`;modal.hidden=false;modal.classList.add("open");} return; }
+    if (close) { const modal = close.closest(".hobby-modal"); if (modal) { modal.hidden = true; modal.innerHTML = ""; } return; }
     const hobbyButton=event.target.closest("[data-hobby-index]");
     if(hobbyButton){const item=window.PORTFOLIO_DATA.hobbies.items[Number(hobbyButton.dataset.hobbyIndex)];const modal=root.querySelector("[data-hobby-modal]");if(item&&modal){modal.innerHTML=`<div class="hobby-modal-backdrop" data-quick-close></div><article class="hobby-modal-dialog" role="dialog"><button class="hobby-modal-close" data-quick-close>×</button><h3>${escapeHTML(item.title)}</h3><div class="hobby-detail-grid">${(item.details||[]).map((d,i)=>`<article class="hobby-detail-slot">${d.image?`<img src="${escapeHTML(d.image)}" alt="">`:""}<div class="hobby-detail-copy"><span>${pad(i)}</span><h4>${escapeHTML(d.title)}</h4><p>${escapeHTML(d.description)}</p></div></article>`).join("")}</div></article>`;modal.hidden=false;modal.classList.add("open");}}
   });  
@@ -244,67 +268,6 @@
   window.PORTFOLIO_STORAGE_KEY = storageKey;
   window.renderPortfolio = renderPortfolio;
   renderPortfolio();
-
-  let lastProjectTrigger = null;
-
-  const closeProjectModal = () => {
-    const modal = root.querySelector("[data-project-modal]");
-    if (!modal || modal.hidden) return;
-    modal.classList.remove("open");
-    document.body.classList.remove("project-modal-is-open");
-    window.setTimeout(() => {
-      modal.hidden = true;
-      modal.innerHTML = "";
-      if (lastProjectTrigger && lastProjectTrigger.isConnected) lastProjectTrigger.focus();
-    }, 180);
-  };
-
-  const openProjectModal = (index, trigger) => {
-    const item = window.PORTFOLIO_DATA.projects.items[index];
-    const modal = root.querySelector("[data-project-modal]");
-    if (!item || !modal) return;
-    const details = item.details || {};
-    const tasks = Array.isArray(details.tasks) && details.tasks.length
-      ? details.tasks
-      : ["프로젝트에서 담당한 업무와 진행 과정을 입력해 주세요."];
-
-    lastProjectTrigger = trigger;
-    modal.innerHTML = `
-      <div class="project-modal-backdrop" data-project-close></div>
-      <article class="project-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="project-modal-title">
-        <button type="button" class="project-modal-close" data-project-close aria-label="팝업 닫기">×</button>
-        <div class="project-modal-heading">
-          <span class="status-badge ${escapeHTML(item.tone)}">${escapeHTML(item.badge)}</span>
-          <p>${escapeHTML(item.role)}</p>
-          <h3 id="project-modal-title">${escapeHTML(item.title)}</h3>
-        </div>
-        <div class="project-modal-content">
-          <section><span>PROJECT OVERVIEW</span><p>${escapeHTML(details.overview || item.description)}</p></section>
-          <section><span>WHAT I DID</span><ul>${tasks.map((task) => `<li>${escapeHTML(task)}</li>`).join("")}</ul></section>
-          <section><span>RESULT</span><p>${escapeHTML(details.result || item.keyExperience || item.CoreExperience)}</p></section>
-          <section><span>WHAT I LEARNED</span><p>${escapeHTML(details.lesson || item.keyExperience || item.CoreExperience)}</p></section>
-        </div>
-      </article>`;
-    modal.hidden = false;
-    document.body.classList.add("project-modal-is-open");
-    window.requestAnimationFrame(() => {
-      modal.classList.add("open");
-      modal.querySelector(".project-modal-close").focus();
-    });
-  };
-
-  root.addEventListener("click", (event) => {
-    const trigger = event.target.closest("[data-project-index]");
-    if (trigger) {
-      openProjectModal(Number(trigger.dataset.projectIndex), trigger);
-      return;
-    }
-    if (event.target.closest("[data-project-close]")) closeProjectModal();
-  });
-
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") closeProjectModal();
-  });
 
   let lastHobbyTrigger = null;
   const closeHobbyModal = (restoreFocus = true) => { const modal = root.querySelector("[data-hobby-modal]"); if (!modal || modal.hidden) return; modal.classList.remove("open"); document.body.classList.remove("hobby-modal-is-open"); window.setTimeout(() => { modal.hidden = true; modal.innerHTML = ""; if (restoreFocus && lastHobbyTrigger && lastHobbyTrigger.isConnected) lastHobbyTrigger.focus(); }, 180); };

@@ -31,7 +31,7 @@ body { display: flex; min-height: 100vh; flex-direction: column; overflow-x: cli
 .section-header h2 { font-size: clamp(36px, 5vw, 64px); font-weight: 750; line-height: 1.16; letter-spacing: -.055em; }
 .section-header > p { justify-self: end; margin: 0; color: var(--slate); }
 .glow-card { min-width: 0; border-radius: 24px; }
-.project-card:hover, a.portfolio-card:hover, .hobby-feature:hover { border-color: var(--blue); }
+a.portfolio-card:hover, .hobby-feature:hover { border-color: var(--blue); }
 
 .resume-overview { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); align-items: center; gap: 20px clamp(24px, 4vw, 48px); padding-bottom: 24px; border-bottom: 1px solid var(--hairline); }
 .resume-identity { display: flex; align-items: center; gap: 16px; }
@@ -61,16 +61,19 @@ body { display: flex; min-height: 100vh; flex-direction: column; overflow-x: cli
 .resume-item-description, .resume-empty { margin: 6px 0 0; font-size: 14px; white-space: pre-line; }
 
 .status-badge[class] { border: 0; border-radius: 999px; background: var(--badge); color: var(--cobalt); font-size: 12px; font-weight: 700; letter-spacing: 0; white-space: normal; }
-.project-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.project-card { min-height: 335px; gap: 13px; padding: clamp(16px, 2vw, 24px); }
-.card-top { gap: 6px 10px; }
-.card-top > span:last-child { flex-shrink: 0; }
-.project-title { margin: 4px 0 0; }
-.project-title p { margin-bottom: 5px; }
-.project-title h3 { font-size: clamp(20px, 2.25vw, 28px); }
-.project-result { padding-top: 12px; }
-.project-result p { margin-top: 5px; }
-.project-card-cue { margin-top: 0; }
+.experience-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(14px, 2vw, 24px); }
+.experience-card { overflow: hidden; }
+.experience-card-text { border-top: 3px solid var(--cobalt); }
+.experience-image { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; background: var(--pebble); }
+.experience-image-contained { object-fit: contain; background: #19150f; }
+.experience-copy { padding: clamp(18px, 2.5vw, 28px); }
+.experience-copy h3 { margin-top: 3px; font-size: clamp(21px, 2.6vw, 31px); }
+.experience-role { color: var(--cobalt); font-size: 13px; font-weight: 700; }
+.experience-summary { margin-top: 8px; }
+.experience-facts { margin: 13px 0 0; }
+.experience-facts > div { grid-template-columns: 62px minmax(0, 1fr); gap: 8px; padding: 8px 0; }
+.experience-facts dt { color: var(--navy); font-size: 13px; font-weight: 740; letter-spacing: normal; }
+.experience-facts dd { color: var(--slate); overflow-wrap: anywhere; }
 
 .portfolio-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .portfolio-card:not(a):hover { transform: none; border-color: var(--hairline); }
@@ -91,21 +94,16 @@ body { display: flex; min-height: 100vh; flex-direction: column; overflow-x: cli
 .hobby-number { width: 46px; height: 46px; border: 0; border-radius: 8px; background: var(--badge); color: var(--cobalt); font-size: 17px; box-shadow: none; }
 .hobby-feature h3 { margin-bottom: 7px; }
 
-:is(.project-modal-backdrop, .hobby-modal-backdrop) { background: rgba(11, 53, 88, .34); backdrop-filter: blur(5px); }
-:is(.project-modal-dialog, .hobby-modal-dialog) { border-color: var(--hairline); border-radius: 24px; background: var(--paper); box-shadow: var(--elevation); }
-:is(.project-modal-dialog, .hobby-modal-dialog) > h3 { margin: 0 45px 0 0; font-size: clamp(25px, 4vw, 40px); }
-:is(.project-modal-close, .hobby-modal-close) { display: grid; width: 44px; height: 44px; place-items: center; padding: 0; border: 1px solid var(--hairline); border-radius: 50%; background: var(--paper); color: var(--navy); font-size: 26px; line-height: 1; }
-:is(.project-modal-close, .hobby-modal-close):focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
-.project-modal-content { margin-top: 24px; overflow: hidden; border-radius: 12px; }
-.project-modal-content section, .hobby-detail-placeholder { background: var(--pebble); }
+.hobby-modal-backdrop { background: rgba(11, 53, 88, .34); backdrop-filter: blur(5px); }
+.hobby-modal-dialog { border-color: var(--hairline); border-radius: 24px; background: var(--paper); box-shadow: var(--elevation); }
+.hobby-modal-dialog > h3 { margin: 0 45px 0 0; font-size: clamp(25px, 4vw, 40px); }
+.hobby-modal-close { display: grid; width: 44px; height: 44px; place-items: center; padding: 0; border: 1px solid var(--hairline); border-radius: 50%; background: var(--paper); color: var(--navy); font-size: 26px; line-height: 1; }
+.hobby-modal-close:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+.hobby-detail-placeholder { background: var(--pebble); }
 .hobby-detail-slot { border-radius: 12px; background: var(--paper); }
 .hobby-detail-slot img { background: var(--pebble); }
 .hobby-detail-copy > span { color: var(--cobalt); }
 .hobby-detail-copy p:empty { display: none; }
-
-@media (max-width: 980px) {
-  .project-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
 
 @media (max-width: 760px) {
   .section-header, .resume-overview, .resume-columns { grid-template-columns: minmax(0, 1fr); }
@@ -113,8 +111,6 @@ body { display: flex; min-height: 100vh; flex-direction: column; overflow-x: cli
 }
 
 @media (max-width: 620px) {
-  .project-grid, .portfolio-grid, .hobby-grid { grid-template-columns: minmax(0, 1fr); }
-  .project-card { min-height: 0; }
-  .project-result { margin-top: 0; }
+  .experience-gallery, .portfolio-grid, .hobby-grid { grid-template-columns: minmax(0, 1fr); }
   .hobby-feature { min-height: 170px; }
 }
