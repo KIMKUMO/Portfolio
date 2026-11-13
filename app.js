@@ -39,21 +39,26 @@
     ${item.meta && item.meta !== "숙련도 또는 사용 기간" ? `<p class="resume-meta">${escapeHTML(item.meta)}</p>` : ""}
     ${item.description ? `<p class="resume-item-description">${escapeHTML(item.description)}</p>` : ""}`;
 
+  const projectTitle = (title) => title === "제로 게이트" ? "제로 게이트 : 헌터즈" : title;
+
   const projectGalleryItems = (items) => {
     const defaults = window.DEFAULT_PORTFOLIO_DATA.projects.items;
     if (!Array.isArray(items)) return defaults;
-    const savedByTitle = new Map(items.map((item) => [item.title, item]));
+    const savedByTitle = new Map(items.map((item) => [projectTitle(item.title), item]));
     const defaultTitles = new Set(defaults.map((item) => item.title));
     const updated = defaults.map((item) => {
       const saved = savedByTitle.get(item.title);
-      return saved ? { ...item, ...saved, details: { ...item.details, ...saved.details } } : item;
+      if (!saved) return item;
+      const period = item.title === "보드게임 페스타" && saved.period === "2023년" ? item.period : saved.period || item.period;
+      return { ...item, ...saved, title: item.title, period, details: { ...item.details, ...saved.details } };
     });
-    return updated.concat(items.filter((item) => !defaultTitles.has(item.title)));
+    return updated.concat(items.filter((item) => !defaultTitles.has(projectTitle(item.title))));
   };
 
   const projectGalleryCard = (item) => {
     const details = item.details || {};
     const [role, savedPeriod] = (item.role || "").split(/\s*·\s*(?=\d{4}(?:\.|년|\b))/);
+    const displayRole = role.replace(/^팀원\s*·.*$/, "팀원");
     const tasks = [
       details.planning,
       details.development,
@@ -69,7 +74,7 @@
       <article class="experience-card glow-card${item.image ? "" : " experience-card-text"}">
         ${item.image ? `<img class="experience-image${item.imageFit === "contain" ? " experience-image-contained" : ""}" src="${escapeHTML(item.image)}" alt="${escapeHTML(item.title)} 플레이 화면" loading="lazy" decoding="async">` : ""}
         <div class="experience-copy">
-          <p class="experience-role">${escapeHTML(role || "—")}</p>
+          <p class="experience-role">${escapeHTML(displayRole || "—")}</p>
           <p class="experience-period">${escapeHTML(item.period || savedPeriod || "—")}</p>
           <h3>${escapeHTML(item.title)}</h3>
           <p class="experience-summary">${escapeHTML(item.description || details.overview || item.keyExperience || item.CoreExperience)}</p>
@@ -139,7 +144,7 @@
         <div class="hero-captions">
           ${data.hero.slides.map((slide, index) => `
             <div class="hero-caption${index === 0 ? " is-active" : ""}"${index === 0 ? "" : " aria-hidden=\"true\""}>
-              <img class="hero-caption-logo" src="${escapeHTML(slide.logo)}" alt="${escapeHTML(slide.title)}">
+              <img class="hero-caption-logo" src="${escapeHTML(slide.logo)}" alt="${escapeHTML(projectTitle(slide.title))}">
               <div class="hero-caption-details">${slide.details.map((detail) => `<p>${escapeHTML(detail)}</p>`).join("")}</div>
             </div>`).join("")}
         </div>

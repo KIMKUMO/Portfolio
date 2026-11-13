@@ -13,7 +13,7 @@ window.PORTFOLIO_DATA = {
     "description": "느릴지언정 멈추진 않습니다. 끝까지 나아가는 게임 기획자의 기록입니다.",
     "slides": [
       {
-        "title": "제로 게이트",
+        "title": "제로 게이트 : 헌터즈",
         "image": "assets/zerogate-hero-poster.webp",
         "video": "assets/zerogate-hero.mp4",
         "logo": "assets/zerogate-logo.webp",
@@ -154,8 +154,9 @@ window.PORTFOLIO_DATA = {
     "intro": "플레이 화면과 함께 기획·개발에 참여한 범위를 살펴볼 수 있습니다.",
     "items": [
       {
-        "title": "제로 게이트",
-        "role": "팀원 · 기획 및 개발",
+        "title": "제로 게이트 : 헌터즈",
+        "role": "팀원",
+        "period": "2026.10 ~ 2026.11 (2개월)",
         "image": "assets/zerogate-hero-poster.webp",
         "description": "전투와 레벨을 설계하고, 디자인 가이드와 3D 모델을 제작했습니다.",
         "details": {
@@ -165,7 +166,8 @@ window.PORTFOLIO_DATA = {
       },
       {
         "title": "컴스톡",
-        "role": "팀원 · 기획 및 개발",
+        "role": "팀원",
+        "period": "2026.08 ~ 2026.09 (2개월)",
         "image": "assets/comstock-gameplay.png",
         "description": "전투와 세부 콘텐츠를 기획하고 Unity로 버티컬 슬라이스 개발을 맡았습니다.",
         "details": {
@@ -175,7 +177,8 @@ window.PORTFOLIO_DATA = {
       },
       {
         "title": "마인스톡",
-        "role": "팀원 · 기획 및 개발",
+        "role": "팀원",
+        "period": "2026.07 ~ 2026.07 (1개월)",
         "image": "assets/minestock-gameplay.png",
         "description": "메인 콘셉트부터 밸런스와 시스템까지 설계하고 게임 전반을 개발했습니다.",
         "details": {
@@ -206,8 +209,8 @@ window.PORTFOLIO_DATA = {
         "badge": "콘텐츠 기획 및 개발",
         "tone": "info",
         "title": "보드게임 페스타",
-        "role": "팀원 · 대학 부스 참가",
-        "period": "2023년",
+        "role": "팀원",
+        "period": "2023.10 ~ 2023.11 (2개월)",
         "description": "팀 회의에서 아이디어를 구체화하고 보드게임 페스타에 대학 부스로 참여했습니다.",
         "keyExperience": "보드게임 페스타에 대학부스로 참여하여 진행해봤던 프로젝트입니다.",
         "details": {
