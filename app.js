@@ -53,23 +53,28 @@
 
   const projectGalleryCard = (item) => {
     const details = item.details || {};
+    const [role, savedPeriod] = (item.role || "").split(/\s*·\s*(?=\d{4}(?:\.|년|\b))/);
+    const tasks = [
+      details.planning,
+      details.development,
+      ...(Array.isArray(details.tasks) ? details.tasks : [])
+    ].filter(Boolean).join(" · ");
     const facts = [
-      ["기획", details.planning],
-      ["개발", details.development],
-      ["담당 업무", Array.isArray(details.tasks) ? details.tasks.filter(Boolean).join(" · ") : ""],
-      ["결과", details.result || item.keyExperience || item.CoreExperience],
+      ["담당업무", tasks],
+      ["결과", details.result],
       ["회고", details.lesson]
-    ].filter(([, value]) => value);
+    ];
 
     return `
       <article class="experience-card glow-card${item.image ? "" : " experience-card-text"}">
         ${item.image ? `<img class="experience-image${item.imageFit === "contain" ? " experience-image-contained" : ""}" src="${escapeHTML(item.image)}" alt="${escapeHTML(item.title)} 플레이 화면" loading="lazy" decoding="async">` : ""}
         <div class="experience-copy">
-          ${item.role ? `<p class="experience-role">${escapeHTML(item.role)}</p>` : ""}
+          <p class="experience-role">${escapeHTML(role || "—")}</p>
+          <p class="experience-period">${escapeHTML(item.period || savedPeriod || "—")}</p>
           <h3>${escapeHTML(item.title)}</h3>
           <p class="experience-summary">${escapeHTML(item.description || details.overview || item.keyExperience || item.CoreExperience)}</p>
-          ${facts.length ? `<dl class="experience-facts">${facts.map(([label, value]) => `
-            <div><dt>${label}</dt><dd>${escapeHTML(value)}</dd></div>`).join("")}</dl>` : ""}
+          <dl class="experience-facts">${facts.map(([label, value]) => `
+            <div><dt>${label}</dt><dd>${escapeHTML(value || "—")}</dd></div>`).join("")}</dl>
         </div>
       </article>`;
   };

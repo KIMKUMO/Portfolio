@@ -69,6 +69,7 @@ a.portfolio-card:hover, .hobby-feature:hover { border-color: var(--blue); }
 .experience-copy { padding: clamp(18px, 2.5vw, 28px); }
 .experience-copy h3 { margin-top: 3px; font-size: clamp(21px, 2.6vw, 31px); }
 .experience-role { color: var(--cobalt); font-size: 13px; font-weight: 700; }
+.experience-period { margin-top: 2px; color: var(--slate); font-size: 13px; font-variant-numeric: tabular-nums; }
 .experience-summary { margin-top: 8px; }
 .experience-facts { margin: 13px 0 0; }
 .experience-facts > div { grid-template-columns: 62px minmax(0, 1fr); gap: 8px; padding: 8px 0; }

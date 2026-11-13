@@ -187,10 +187,11 @@ window.PORTFOLIO_DATA = {
         "badge": "시스템, 콘텐츠, 라이브서비스",
         "tone": "info",
         "title": "이미테이션 게임",
-        "role": "팀장 · 2024.04 ~ 2024.07(4개월)",
+        "role": "팀장",
+        "period": "2024.04 ~ 2024.07 (4개월)",
         "image": "assets/imitation-game-gameplay.png",
         "imageFit": "contain",
-        "description": "보드게임을 기획·제작하고, 보드게임 콘 대학 부스에서 시연과 방문객 응대를 맡았습니다.",
+        "description": "보드게임 콘에 5인 팀으로 대학부스에 참여했습니다.",
         "keyExperience": "보드게임 콘에 팀장으로 대학부스에 참여하여 진행해봤던 프로젝트입니다.",
         "details": {
           "planning": "콘셉트, 시나리오, 게임 루프, 밸런스, 콘텐츠, 시스템",
@@ -205,7 +206,8 @@ window.PORTFOLIO_DATA = {
         "badge": "콘텐츠 기획 및 개발",
         "tone": "info",
         "title": "보드게임 페스타",
-        "role": "팀원 · 대학 부스 참가 · 2023년",
+        "role": "팀원 · 대학 부스 참가",
+        "period": "2023년",
         "description": "팀 회의에서 아이디어를 구체화하고 보드게임 페스타에 대학 부스로 참여했습니다.",
         "keyExperience": "보드게임 페스타에 대학부스로 참여하여 진행해봤던 프로젝트입니다.",
         "details": {
@@ -219,7 +221,8 @@ window.PORTFOLIO_DATA = {
         "badge": "시스템 기획 및 개발",
         "tone": "info",
         "title": "프로그래밍 L",
-        "role": "팀장 · 2017.04 ~ 2017.10(7개월)",
+        "role": "팀장",
+        "period": "2017.04 ~ 2017.10 (7개월)",
         "description": "학생 자치 게임 개발 프로젝트에서 팀장을 이어받아 팀을 재정비했습니다.",
         "keyExperience": "학생 자치 프로젝트 '몽실학교'에서 팀장을 맡아 게임을 개발했던 첫 팀 프로젝트입니다.",
         "details": {
