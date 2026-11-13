@@ -33,20 +33,31 @@ body { display: flex; min-height: 100vh; flex-direction: column; overflow-x: cli
 .glow-card { min-width: 0; border-radius: 24px; }
 .project-card:hover, a.portfolio-card:hover, .hobby-feature:hover { border-color: var(--blue); }
 
-.resume-layout { grid-template-columns: minmax(0, .75fr) minmax(0, 1.25fr); align-items: start; }
-.resume-profile { min-height: 0; padding: clamp(16px, 2.4vw, 26px); }
-.resume-profile h3 { margin: 16px 0 4px; }
-.resume-profile dl { margin-top: 17px; }
-.resume-profile dl > div { grid-template-columns: minmax(62px, .26fr) minmax(0, 1fr); padding-block: 9px; }
-.resume-profile dt { font-weight: 700; letter-spacing: .06em; }
-.resume-groups { grid-template-columns: minmax(0, 1fr); }
-.resume-group { padding: clamp(16px, 2.4vw, 26px); }
-.resume-group > h3 { font-size: clamp(21px, 2.4vw, 28px); }
+.resume-overview { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); align-items: center; gap: 20px clamp(24px, 4vw, 48px); padding-bottom: 24px; border-bottom: 1px solid var(--hairline); }
+.resume-identity { display: flex; align-items: center; gap: 16px; }
+.resume-avatar { width: 72px; height: 72px; flex: none; border-radius: 50%; object-fit: cover; object-position: 50% 30%; background: var(--badge); }
+.resume-kicker, .resume-kind { color: var(--cobalt); font-size: 12px; font-weight: 750; }
+.resume-identity h2 { margin: 2px 0 4px; font-size: clamp(34px, 5vw, 57px); font-weight: 750; }
+.resume-contacts { display: grid; gap: 4px; margin: 0; }
+.resume-contacts > div { grid-template-columns: 48px minmax(0, 1fr); gap: 8px; padding: 0; border: 0; }
+.resume-contacts dt { color: var(--navy); font-size: 13px; font-weight: 700; letter-spacing: normal; }
+.resume-contacts dd { color: var(--slate); font-size: 13px; overflow-wrap: anywhere; }
+.resume-columns { display: grid; grid-template-columns: minmax(0, 1.24fr) minmax(0, .76fr); align-items: start; gap: clamp(24px, 4vw, 48px); margin-top: clamp(23px, 3vw, 38px); }
+.resume-history > h3, .resume-group > h3 { font-size: clamp(22px, 2.4vw, 28px); }
+.resume-timeline { position: relative; margin: 18px 0 0; padding: 0; list-style: none; }
+.resume-timeline::before { position: absolute; top: 8px; bottom: 10px; left: 56px; width: 1px; background: var(--hairline); content: ''; }
+.resume-timeline > li { position: relative; display: grid; grid-template-columns: 45px minmax(0, 1fr); gap: 26px; padding-bottom: 18px; }
+.resume-timeline > li:last-child { padding-bottom: 0; }
+.resume-timeline > li::before { position: absolute; top: 7px; left: 53px; width: 7px; height: 7px; border-radius: 50%; background: var(--blue); content: ''; }
+.resume-year { color: var(--cobalt); font-size: 14px; font-weight: 750; font-variant-numeric: tabular-nums; }
+.resume-kind { margin-bottom: 3px; }
+.resume-side { padding: clamp(16px, 2.4vw, 26px); }
+.resume-group + .resume-group { margin-top: 25px; }
 .resume-items { margin: 12px 0 0; padding: 0; list-style: none; }
 .resume-items > li { padding: 14px 0; border-top: 1px solid var(--hairline); }
 .resume-items > li:last-child { padding-bottom: 0; }
-.resume-items h4 { margin: 0; font-size: clamp(16px, 1.8vw, 20px); line-height: 1.4; }
-.resume-items .resume-meta { margin: 4px 0 0; }
+.resume-columns h4 { margin: 0; font-size: clamp(16px, 1.8vw, 20px); line-height: 1.4; overflow-wrap: anywhere; }
+.resume-columns .resume-meta { margin: 4px 0 0; }
 .resume-item-description, .resume-empty { margin: 6px 0 0; font-size: 14px; white-space: pre-line; }
 
 .status-badge[class] { border: 0; border-radius: 999px; background: var(--badge); color: var(--cobalt); font-size: 12px; font-weight: 700; letter-spacing: 0; white-space: normal; }
@@ -97,7 +108,7 @@ body { display: flex; min-height: 100vh; flex-direction: column; overflow-x: cli
 }
 
 @media (max-width: 760px) {
-  .section-header, .resume-layout { grid-template-columns: minmax(0, 1fr); }
+  .section-header, .resume-overview, .resume-columns { grid-template-columns: minmax(0, 1fr); }
   .section-header > p { justify-self: start; }
 }
 

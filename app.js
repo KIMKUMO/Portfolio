@@ -22,11 +22,22 @@
   const pad = (index) => String(index + 1).padStart(2, "0");
   const lines = (items) => items.map(escapeHTML).join("<br>");
   const contactLabels = {
-    email: "EMAIL",
-    phone: "PHONE",
-    location: "LOCATION",
-    military: "MILITARY"
+    email: "이메일",
+    phone: "전화",
+    location: "지역",
+    military: "병역",
+    university: "학력"
   };
+
+  const resumeStart = (meta) => {
+    const match = /^\s*(\d{4})(?:\s*[.\-/]\s*(0?[1-9]|1[0-2])\b|\s*년\s*(0?[1-9]|1[0-2])\s*월)?/.exec(meta ?? "");
+    return match ? Number(match[1]) * 100 + Number(match[2] ?? match[3] ?? 0) : 0;
+  };
+
+  const resumeItem = (item) => `
+    <h4>${escapeHTML(item.title)}</h4>
+    ${item.meta && item.meta !== "숙련도 또는 사용 기간" ? `<p class="resume-meta">${escapeHTML(item.meta)}</p>` : ""}
+    ${item.description ? `<p class="resume-item-description">${escapeHTML(item.description)}</p>` : ""}`;
 
   const portfolioCard = (item, index) => {
     const tag = item.link ? "a" : "article";
@@ -56,6 +67,13 @@
     document.title = data.site.title;
     const metaDescription = document.querySelector('meta[name="description"]');
     if (metaDescription) metaDescription.content = data.site.description;
+
+    const isTimelineGroup = (group) => group.key === "career" || group.key === "education";
+    const resumeTimeline = data.resume.groups.filter(isTimelineGroup)
+      .flatMap((group) => group.items.map((item) => ({ item, label: group.label, start: resumeStart(item.meta) })))
+      .sort((a, b) => b.start - a.start);
+    const resumeSideGroups = data.resume.groups.filter((group) => !isTimelineGroup(group))
+      .sort((a, b) => Number(b.key === "skill") - Number(a.key === "skill"));
 
   root.innerHTML = `
     <main id="main">
@@ -110,33 +128,43 @@
       </section>
 
       <section id="resume" class="section-shell section-block" aria-labelledby="resume-title">
-        <header class="section-header">
-          <div><p class="eyebrow">01 · RESUME</p><h2 id="resume-title">이력서</h2></div>
-          <p>${escapeHTML(data.resume.intro)}</p>
+        <header class="resume-overview">
+          <div class="resume-identity">
+            <img class="resume-avatar" src="assets/KakaoTalk_20260911_125731636.jpg" width="72" height="72" alt="">
+            <div>
+              <p class="resume-kicker">이력서</p>
+              <h2 id="resume-title">${escapeHTML(data.resume.name)}</h2>
+              <p class="resume-role">${escapeHTML(data.resume.role)}</p>
+            </div>
+          </div>
+          <dl class="resume-contacts">
+            ${Object.entries(data.resume.contacts).map(([key, value]) => `
+              <div><dt>${escapeHTML(contactLabels[key] || key.toUpperCase())}</dt><dd>${escapeHTML(value)}</dd></div>`).join("")}
+          </dl>
         </header>
-        <div class="resume-layout">
-          <article class="resume-profile glow-card">
-                                    <img class="profile-monogram" src="assets/KakaoTalk_20260911_125731636.jpg" alt="${escapeHTML(data.resume.name)} 프로필 사진" style="display:block;height:190px;min-height:190px;object-fit:contain;object-position:center;background:#f4f4f6;font-size:0">
-            <div><h3>${escapeHTML(data.resume.name)}</h3><p>${escapeHTML(data.resume.role)}</p></div>
-            <dl>
-              ${Object.entries(data.resume.contacts).map(([key, value]) => `
-                <div><dt>${escapeHTML(contactLabels[key] || key.toUpperCase())}</dt><dd>${escapeHTML(value)}</dd></div>`).join("")}
-            </dl>
-          </article>
-          <div class="resume-groups">
-            ${data.resume.groups.map((group) => `
-              <section class="resume-group glow-card">
+        <div class="resume-columns">
+          <section class="resume-history" aria-labelledby="resume-history-title">
+            <h3 id="resume-history-title">경력과 교육</h3>
+            ${resumeTimeline.length ? `<ol class="resume-timeline">
+              ${resumeTimeline.map(({ item, label, start }) => `
+                <li>
+                  <span class="resume-year">${start ? Math.floor(start / 100) : ""}</span>
+                  <div>
+                    <p class="resume-kind">${escapeHTML(label)}</p>
+                    ${resumeItem(item)}
+                  </div>
+                </li>`).join("")}
+            </ol>` : '<p class="resume-empty">아직 등록된 경력이나 교육이 없습니다.</p>'}
+          </section>
+          ${resumeSideGroups.length ? `<aside class="resume-side glow-card" aria-label="기술과 자격증">
+            ${resumeSideGroups.map((group) => `
+              <section class="resume-group">
                 <h3>${escapeHTML(group.label)}</h3>
                 ${group.items.length ? `<ul class="resume-items">
-                  ${group.items.map((item) => `
-                    <li>
-                      <h4>${escapeHTML(item.title)}</h4>
-                      ${item.meta ? `<p class="resume-meta">${escapeHTML(item.meta)}</p>` : ""}
-                      ${item.description ? `<p class="resume-item-description">${escapeHTML(item.description)}</p>` : ""}
-                    </li>`).join("")}
+                  ${group.items.map((item) => `<li>${resumeItem(item)}</li>`).join("")}
                 </ul>` : '<p class="resume-empty">아직 등록된 항목이 없습니다.</p>'}
               </section>`).join("")}
-          </div>
+          </aside>` : ""}
         </div>
       </section>
 
