@@ -20,8 +20,6 @@ body { display: flex; min-height: 100vh; flex-direction: column; overflow-x: cli
 .header-inner nav a { padding-block: 0; }
 .header-inner nav a:hover { background: transparent; }
 .header-inner nav a:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }
-.header-inner .more-nav a:hover { background: var(--pebble); }
-.more-nav a[aria-current='page'] { background: var(--badge); color: var(--cobalt); }
 .detail-footer { border-top: 1px solid var(--hairline); }
 .detail-footer .wrap { display: flex; min-height: 72px; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px 16px; padding-block: 8px; font-size: 13px; }
 .detail-footer a { display: inline-flex; min-height: 44px; align-items: center; text-decoration: underline; text-underline-offset: 4px; }
