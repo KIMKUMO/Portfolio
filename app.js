@@ -61,7 +61,7 @@
   const resumeItem = (item, icons) => `
     <h4>${escapeHTML(item.title)}</h4>
     ${icons ? `<div class="resume-item-icons">${icons.map(([src, alt]) => `
-      <img class="resume-item-icon" src="${escapeHTML(src)}" width="48" height="48" alt="${escapeHTML(alt)}">
+      <img class="resume-item-icon" src="${escapeHTML(src)}" width="36" height="36" alt="${escapeHTML(alt)}">
     `).join("")}</div>` : ""}
     ${item.meta && item.meta !== "숙련도 또는 사용 기간" ? `<p class="resume-meta">${escapeHTML(item.meta)}</p>` : ""}
     ${item.description ? `<p class="resume-item-description">${escapeHTML(item.description)}</p>` : ""}`;
@@ -231,7 +231,7 @@
           </section>
           ${resumeSideGroups.length ? `<aside class="resume-side glow-card" aria-label="기술과 자격증">
             ${resumeSideGroups.map((group) => `
-              <section class="resume-group">
+              <section class="resume-group${group.key === "skill" ? " resume-skill-group" : ""}">
                 <h3>${escapeHTML(group.label)}</h3>
                 ${group.items.length ? `<ul class="resume-items">
                   ${group.items.map((item) => {
@@ -241,8 +241,10 @@
                     const description = previousDescription && item.description === previousDescription
                       ? defaultSkills.find((skill) => skill.title === title)?.description ?? item.description
                       : item.description;
-                    const skill = { ...item, title, description };
-                    const icons = resumeSkillIcons.get(String(title ?? "").replace(/\s+/g, "").toLowerCase());
+                    const skillKey = String(title ?? "").replace(/\s+/g, "").toLowerCase();
+                    const meta = skillKey === "unity엔진" && item.meta === "2년" ? "" : item.meta;
+                    const skill = { ...item, title, description, meta };
+                    const icons = resumeSkillIcons.get(skillKey);
                     return `<li${icons ? ' class="resume-item-with-icon"' : ""}>${resumeItem(skill, icons)}</li>`;
                   }).join("")}
                 </ul>` : '<p class="resume-empty">아직 등록된 항목이 없습니다.</p>'}

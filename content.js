@@ -128,7 +128,7 @@ window.PORTFOLIO_DATA = {
         "items": [
           {
             "title": "Unity엔진",
-            "meta": "2년",
+            "meta": "",
             "description": "유니티 엔진을 이용해 2D, 3D 게임을 개발해본 경험이 존재합니다.\n하이라키, 인스펙터 등의 유니티 엔진을 활용하는 기본 정보들을 숙지하고 있습니다."
           },
           {
