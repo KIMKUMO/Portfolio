@@ -10,11 +10,21 @@
     main { overflow-x: clip; }
 
     .hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.07fr); align-items: center; gap: clamp(22px, 5vw, 72px); padding-block: var(--section); }
-    .hero-copy { display: grid; justify-items: start; gap: 17px; }
+    .hero-copy { display: grid; justify-items: start; gap: 19px; }
+    .hero-identity { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
     .hero-label { display: inline-flex; align-items: center; gap: 7px; padding: 5px 10px; border-radius: 999px; background: var(--badge); }
     .hero-label::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
-    h1 { font-size: clamp(37px, 5.35vw, 80px); line-height: 1.12; letter-spacing: -.055em; }
-    .hero-copy p { max-width: 24em; font-size: clamp(15px, 1.5vw, 19px); }
+    .hero-name { margin-top: 12px; color: var(--navy); font-size: clamp(40px, 5.1vw, 69px); line-height: 1; font-weight: 790; letter-spacing: -.07em; }
+    .hero-portrait { display: block; flex: none; width: clamp(82px, 10vw, 139px); aspect-ratio: 1; object-fit: cover; object-position: center 30%; border: 4px solid var(--paper); border-radius: 50%; background: var(--badge); box-shadow: 0 0 0 1px var(--hairline); }
+    .hero-contacts { display: flex; flex-wrap: wrap; gap: 5px 19px; width: 100%; margin: 0; padding-block: 13px; border-block: 1px solid var(--hairline); }
+    .hero-contacts > div { display: flex; align-items: baseline; gap: 2px 7px; }
+    .hero-contacts dt { color: var(--slate); font-size: 12px; font-weight: 700; }
+    .hero-contacts dd { margin: 0; color: var(--navy); font-size: 14px; font-weight: 675; font-variant-numeric: tabular-nums; }
+    .hero-contacts a { text-decoration: none; }
+    .hero-contacts a:hover, .hero-contacts a:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
+    .hero-message { display: grid; gap: 7px; }
+    .hero-message h2 { font-size: clamp(20px, 2vw, 28px); line-height: 1.3; letter-spacing: -.045em; }
+    .hero-message p { max-width: 36em; font-size: clamp(14px, 1.15vw, 16px); }
     .hero-visual { position: relative; isolation: isolate; margin: 0 10px 0 0; }
     .hero-visual::before, .hero-visual::after { content: ''; position: absolute; z-index: -1; filter: blur(22px); opacity: .39; pointer-events: none; }
     .hero-visual::before { left: -18px; bottom: -11px; width: 38%; height: 42%; border-radius: 53% 47% 63% 37%; background: var(--pink); transform: rotate(-17deg); }
@@ -80,7 +90,6 @@
 
     @media (max-width: 760px) {
       .hero { grid-template-columns: 1fr; }
-      .hero-copy { gap: 12px; }
       .hero-visual { width: min(100% - 8px, 560px); }
       .hero-visual::after { right: -12px; }
       .project-arrow-prev { left: -8px; }
@@ -120,9 +129,21 @@
   <main>
     <section id="intro" class="hero wrap" aria-labelledby="intro-title">
       <div class="hero-copy">
-        <div class="kicker hero-label">GAME PLANNER PORTFOLIO</div>
-        <h1 id="intro-title">꾸준히 나아가는<br>게임 기획자</h1>
-        <p>여러가지 배움과 경험을 쌓으며 기획자를 향해 나아왔습니다.</p>
+        <div class="hero-identity">
+          <div>
+            <div class="kicker hero-label">GAME PLANNER PORTFOLIO</div>
+            <h1 class="hero-name" id="intro-title">김재원</h1>
+          </div>
+          <img class="hero-portrait" src="assets/KakaoTalk_20260911_125731636.jpg" alt="김재원 이력서 사진">
+        </div>
+        <dl class="hero-contacts">
+          <div><dt>전화</dt><dd><a href="tel:010-5462-3378">010-5462-3378</a></dd></div>
+          <div><dt>이메일</dt><dd><a href="mailto:ky74123@gmail.com">ky74123@gmail.com</a></dd></div>
+        </dl>
+        <div class="hero-message">
+          <h2>꾸준히 나아가는 게임 기획자</h2>
+          <p>여러가지 배움과 경험을 쌓으며 기획자를 향해 나아왔습니다.</p>
+        </div>
       </div>
       <div class="hero-visual" data-project-carousel role="group" aria-label="대표 프로젝트 미리보기">
         <div class="preview-frame">
