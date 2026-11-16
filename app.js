@@ -53,10 +53,21 @@
     ]]
   ]);
 
-  const previousSkillDescriptions = new Map([
+  const previousResumeDescriptions = new Map([
     ["문서 프로그램", "워드, ppt 등을 활용하여 기획 문서를 작성 및 활용하여 프로젝트를 진행, 완성 해본 경험이 존재합니다."],
-    ["C++, C#", "C++, C#를 이용한 코드에 기능적인 이해와 구현을 진행 할 수 있습니다.\nIF, For문 등을 활용한 코드에 해석을 진행 할 수 있습니다."]
+    ["C++, C#", "C++, C#를 이용한 코드에 기능적인 이해와 구현을 진행 할 수 있습니다.\nIF, For문 등을 활용한 코드에 해석을 진행 할 수 있습니다."],
+    ["JLPT N3", "일본어를 이용한 일생회화를 수행할 수 있습니다."],
+    ["GTQ 2급", "포토샵의 편집, 누끼, 레이어 등에 기본적인 지식을 숙지하고 있습니다."],
+    ["ITQ 엑셀, PPT, 한글", "엑셀 - 간단한 함수 사용, 문서 정리 등을 사용 할 수 있습니다.\nPPT - 발표 자료 정리 및 기획 문서 제작에 필요한 기능을 사용 할 수 있습니다."]
   ]);
+
+  const resumeDescription = (title, description, groupKey) => {
+    const previousDescription = previousResumeDescriptions.get(title);
+    if (!previousDescription || description !== previousDescription) return description;
+
+    const defaultGroup = window.DEFAULT_PORTFOLIO_DATA.resume.groups.find((group) => group.key === groupKey);
+    return defaultGroup?.items.find((item) => item.title === title)?.description ?? description;
+  };
 
   const resumeItem = (item, icons) => `
     <h4>${escapeHTML(item.title)}</h4>
@@ -74,7 +85,7 @@
     <dl class="resume-certificate">
       <div><dt>발급기관</dt><dd>${escapeHTML(issuer || "—")}</dd></div>
       <div><dt>발급일</dt><dd>${escapeHTML(issuedDate || "—")}</dd></div>
-      <div><dt>내용</dt><dd>${escapeHTML(item.description || "—")}</dd></div>
+      <div><dt>내용</dt><dd>${escapeHTML(resumeDescription(item.title, item.description, "certificate") || "—")}</dd></div>
     </dl>`;
   };
 
@@ -158,7 +169,6 @@
       .sort((a, b) => b.start - a.start);
     const resumeSideGroups = data.resume.groups.filter((group) => !isTimelineGroup(group))
       .sort((a, b) => Number(b.key === "skill") - Number(a.key === "skill"));
-    const defaultSkills = window.DEFAULT_PORTFOLIO_DATA.resume.groups.find((group) => group.key === "skill")?.items ?? [];
 
   root.innerHTML = `
     <main id="main">
@@ -250,10 +260,7 @@
                     if (group.key === "certificate") return `<li>${resumeCertificate(item)}</li>`;
                     if (group.key !== "skill") return `<li>${resumeItem(item)}</li>`;
                     const title = item.title === "오피스 ( 문서작업 )" ? "문서 프로그램" : item.title;
-                    const previousDescription = previousSkillDescriptions.get(title);
-                    const description = previousDescription && item.description === previousDescription
-                      ? defaultSkills.find((skill) => skill.title === title)?.description ?? item.description
-                      : item.description;
+                    const description = resumeDescription(title, item.description, group.key);
                     const skillKey = String(title ?? "").replace(/\s+/g, "").toLowerCase();
                     const meta = skillKey === "unity엔진" && item.meta === "2년" ? "" : item.meta;
                     const skill = { ...item, title, description, meta };
