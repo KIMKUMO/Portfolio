@@ -12,9 +12,7 @@
     .hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.07fr); align-items: center; gap: clamp(22px, 5vw, 72px); padding-block: var(--section); }
     .hero-copy { display: grid; justify-items: start; gap: 19px; }
     .hero-identity { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
-    .hero-label { display: inline-flex; align-items: center; gap: 7px; padding: 5px 10px; border-radius: 999px; background: var(--badge); }
-    .hero-label::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); }
-    .hero-name { margin-top: 12px; color: var(--navy); font-size: clamp(40px, 5.1vw, 69px); line-height: 1; font-weight: 790; letter-spacing: -.07em; }
+    .hero-name { color: var(--navy); font-size: clamp(40px, 5.1vw, 69px); line-height: 1; font-weight: 790; letter-spacing: -.07em; }
     .hero-portrait { display: block; flex: none; width: clamp(82px, 10vw, 139px); aspect-ratio: 1; object-fit: cover; object-position: center 30%; border: 4px solid var(--paper); border-radius: 50%; background: var(--badge); box-shadow: 0 0 0 1px var(--hairline); }
     .hero-contacts { display: flex; flex-wrap: wrap; gap: 5px 19px; width: 100%; margin: 0; padding-block: 13px; border-block: 1px solid var(--hairline); }
     .hero-contacts > div { display: flex; align-items: baseline; gap: 2px 7px; }
@@ -130,10 +128,7 @@
     <section id="intro" class="hero wrap" aria-labelledby="intro-title">
       <div class="hero-copy">
         <div class="hero-identity">
-          <div>
-            <div class="kicker hero-label">GAME PLANNER PORTFOLIO</div>
-            <h1 class="hero-name" id="intro-title">김재원</h1>
-          </div>
+          <h1 class="hero-name" id="intro-title">김재원</h1>
           <img class="hero-portrait" src="assets/KakaoTalk_20260911_125731636.jpg" alt="김재원 이력서 사진">
         </div>
         <dl class="hero-contacts">
