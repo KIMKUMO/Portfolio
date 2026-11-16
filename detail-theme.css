@@ -62,6 +62,8 @@ a.portfolio-card:hover, .hobby-feature:hover { border-color: var(--blue); }
 .resume-item-icons { grid-area: 1 / 2 / 3; display: flex; align-items: center; gap: 4px; }
 .resume-item-icon { width: 36px; height: 36px; object-fit: contain; }
 .resume-item-icon:only-child { width: 48px; height: 48px; }
+/* Match the visible hexagon heights despite the C++ artwork's transparent padding. */
+.resume-item-icon[src$="/resume-cpp.png"] { transform: scale(1.16); }
 .resume-item-with-icon .resume-item-description { grid-column: 1 / -1; }
 .resume-columns h4 { margin: 0; font-size: clamp(16px, 1.8vw, 20px); line-height: 1.4; overflow-wrap: anywhere; }
 .resume-columns .resume-meta { margin: 4px 0 0; }

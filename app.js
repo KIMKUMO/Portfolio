@@ -40,7 +40,16 @@
       ["assets/resume-excel.png", "Excel"],
       ["assets/resume-figma.png", "Figma"],
       ["assets/resume-powerpoint.png", "PowerPoint"]
+    ]],
+    ["c++,c#", [
+      ["assets/resume-cpp.png", "C++"],
+      ["assets/resume-csharp.png", "C#"]
     ]]
+  ]);
+
+  const previousSkillDescriptions = new Map([
+    ["문서 프로그램", "워드, ppt 등을 활용하여 기획 문서를 작성 및 활용하여 프로젝트를 진행, 완성 해본 경험이 존재합니다."],
+    ["C++, C#", "C++, C#를 이용한 코드에 기능적인 이해와 구현을 진행 할 수 있습니다.\nIF, For문 등을 활용한 코드에 해석을 진행 할 수 있습니다."]
   ]);
 
   const resumeItem = (item, icons) => `
@@ -131,8 +140,7 @@
       .sort((a, b) => b.start - a.start);
     const resumeSideGroups = data.resume.groups.filter((group) => !isTimelineGroup(group))
       .sort((a, b) => Number(b.key === "skill") - Number(a.key === "skill"));
-    const documentSkill = window.DEFAULT_PORTFOLIO_DATA.resume.groups.find((group) => group.key === "skill")
-      ?.items.find((item) => item.title === "문서 프로그램");
+    const defaultSkills = window.DEFAULT_PORTFOLIO_DATA.resume.groups.find((group) => group.key === "skill")?.items ?? [];
 
   root.innerHTML = `
     <main id="main">
@@ -222,12 +230,13 @@
                 ${group.items.length ? `<ul class="resume-items">
                   ${group.items.map((item) => {
                     if (group.key !== "skill") return `<li>${resumeItem(item)}</li>`;
-                    const isLegacyDocumentSkill = documentSkill && item.title === "오피스 ( 문서작업 )";
-                    const skill = isLegacyDocumentSkill ? { ...item, title: documentSkill.title } : item;
-                    if (isLegacyDocumentSkill && skill.description === "워드, ppt 등을 활용하여 기획 문서를 작성 및 활용하여 프로젝트를 진행, 완성 해본 경험이 존재합니다.") {
-                      skill.description = documentSkill.description;
-                    }
-                    const icons = resumeSkillIcons.get(String(skill.title ?? "").replace(/\s+/g, "").toLowerCase());
+                    const title = item.title === "오피스 ( 문서작업 )" ? "문서 프로그램" : item.title;
+                    const previousDescription = previousSkillDescriptions.get(title);
+                    const description = previousDescription && item.description === previousDescription
+                      ? defaultSkills.find((skill) => skill.title === title)?.description ?? item.description
+                      : item.description;
+                    const skill = { ...item, title, description };
+                    const icons = resumeSkillIcons.get(String(title ?? "").replace(/\s+/g, "").toLowerCase());
                     return `<li${icons ? ' class="resume-item-with-icon"' : ""}>${resumeItem(skill, icons)}</li>`;
                   }).join("")}
                 </ul>` : '<p class="resume-empty">아직 등록된 항목이 없습니다.</p>'}
