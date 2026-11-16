@@ -66,6 +66,18 @@
     ${item.meta && item.meta !== "숙련도 또는 사용 기간" ? `<p class="resume-meta">${escapeHTML(item.meta)}</p>` : ""}
     ${item.description ? `<p class="resume-item-description">${escapeHTML(item.description)}</p>` : ""}`;
 
+  const resumeCertificate = (item) => {
+    const metadata = String(item.meta ?? "").trim();
+    const [issuer, issuedDate = ""] = metadata.split(/\s+[-–—]\s+(?=\d{4}(?!\d))/, 2);
+
+    return `<dl class="resume-certificate">
+      <div><dt>자격증 명</dt><dd><h4>${escapeHTML(item.title)}</h4></dd></div>
+      <div><dt>발급기관</dt><dd>${escapeHTML(issuer || "—")}</dd></div>
+      <div><dt>발급일</dt><dd>${escapeHTML(issuedDate || "—")}</dd></div>
+      <div><dt>내용</dt><dd>${escapeHTML(item.description || "—")}</dd></div>
+    </dl>`;
+  };
+
   const projectTitle = (title) => title === "제로 게이트" ? "제로 게이트 : 헌터즈" : title;
 
   const projectGalleryItems = (items) => {
@@ -235,6 +247,7 @@
                 <h3>${escapeHTML(group.label)}</h3>
                 ${group.items.length ? `<ul class="resume-items">
                   ${group.items.map((item) => {
+                    if (group.key === "certificate") return `<li>${resumeCertificate(item)}</li>`;
                     if (group.key !== "skill") return `<li>${resumeItem(item)}</li>`;
                     const title = item.title === "오피스 ( 문서작업 )" ? "문서 프로그램" : item.title;
                     const previousDescription = previousSkillDescriptions.get(title);
