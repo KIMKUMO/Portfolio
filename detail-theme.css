@@ -56,6 +56,11 @@ a.portfolio-card:hover, .hobby-feature:hover { border-color: var(--blue); }
 .resume-items { margin: 12px 0 0; padding: 0; list-style: none; }
 .resume-items > li { padding: 14px 0; border-top: 1px solid var(--hairline); }
 .resume-items > li:last-child { padding-bottom: 0; }
+.resume-item-with-icon { display: grid; grid-template-columns: minmax(0, 1fr) 48px; grid-template-rows: auto auto; column-gap: 12px; align-items: start; }
+.resume-item-with-icon h4 { grid-area: 1 / 1; }
+.resume-item-with-icon .resume-meta { grid-area: 2 / 1; }
+.resume-item-icon { grid-area: 1 / 2 / 3; width: 48px; height: 48px; object-fit: contain; }
+.resume-item-with-icon .resume-item-description { grid-column: 1 / -1; }
 .resume-columns h4 { margin: 0; font-size: clamp(16px, 1.8vw, 20px); line-height: 1.4; overflow-wrap: anywhere; }
 .resume-columns .resume-meta { margin: 4px 0 0; }
 .resume-item-description, .resume-empty { margin: 6px 0 0; font-size: 14px; white-space: pre-line; }

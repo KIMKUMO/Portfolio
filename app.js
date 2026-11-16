@@ -34,8 +34,9 @@
     return match ? Number(match[1]) * 100 + Number(match[2] ?? match[3] ?? 0) : 0;
   };
 
-  const resumeItem = (item) => `
+  const resumeItem = (item, icon) => `
     <h4>${escapeHTML(item.title)}</h4>
+    ${icon ? `<img class="resume-item-icon" src="${escapeHTML(icon)}" width="48" height="48" alt="">` : ""}
     ${item.meta && item.meta !== "숙련도 또는 사용 기간" ? `<p class="resume-meta">${escapeHTML(item.meta)}</p>` : ""}
     ${item.description ? `<p class="resume-item-description">${escapeHTML(item.description)}</p>` : ""}`;
 
@@ -206,7 +207,10 @@
               <section class="resume-group">
                 <h3>${escapeHTML(group.label)}</h3>
                 ${group.items.length ? `<ul class="resume-items">
-                  ${group.items.map((item) => `<li>${resumeItem(item)}</li>`).join("")}
+                  ${group.items.map((item) => {
+                    const icon = group.key === "skill" && /^Unity\s*엔진$/i.test(item.title) ? "assets/unity-logo.png" : "";
+                    return `<li${icon ? ' class="resume-item-with-icon"' : ""}>${resumeItem(item, icon)}</li>`;
+                  }).join("")}
                 </ul>` : '<p class="resume-empty">아직 등록된 항목이 없습니다.</p>'}
               </section>`).join("")}
           </aside>` : ""}
