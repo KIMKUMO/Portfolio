@@ -44,6 +44,12 @@
     ["c++,c#", [
       ["assets/resume-cpp.png", "C++"],
       ["assets/resume-csharp.png", "C#"]
+    ]],
+    ["aitool", [
+      ["assets/resume-chatgpt.png", "ChatGPT"],
+      ["assets/resume-claude.png", "Claude"],
+      ["assets/resume-meshy.png", "Meshy"],
+      ["assets/resume-gemini.png", "Gemini"]
     ]]
   ]);
 
