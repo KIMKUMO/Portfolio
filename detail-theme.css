@@ -70,11 +70,10 @@ a.portfolio-card:hover, .hobby-feature:hover { border-color: var(--blue); }
 .resume-columns .resume-meta { margin: 4px 0 0; }
 .resume-item-description, .resume-empty { margin: 6px 0 0; font-size: 14px; white-space: pre-line; }
 .resume-skill-group .resume-item-description { margin-top: 12px; }
-.resume-certificate { display: grid; gap: 6px; margin: 0; }
+.resume-certificate { display: grid; gap: 6px; margin: 10px 0 0; }
 .resume-certificate > div { grid-template-columns: 62px minmax(0, 1fr); align-items: baseline; gap: 10px; padding: 0; border: 0; }
 .resume-certificate dt { color: var(--navy); font-size: 12px; font-weight: 700; letter-spacing: normal; }
 .resume-certificate dd { color: var(--slate); white-space: pre-line; overflow-wrap: anywhere; }
-.resume-certificate h4 { color: var(--navy); }
 
 .status-badge[class] { border: 0; border-radius: 999px; background: var(--badge); color: var(--cobalt); font-size: 12px; font-weight: 700; letter-spacing: 0; white-space: normal; }
 .experience-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(14px, 2vw, 24px); }

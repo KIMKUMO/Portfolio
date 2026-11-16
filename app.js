@@ -70,8 +70,8 @@
     const metadata = String(item.meta ?? "").trim();
     const [issuer, issuedDate = ""] = metadata.split(/\s+[-–—]\s+(?=\d{4}(?!\d))/, 2);
 
-    return `<dl class="resume-certificate">
-      <div><dt>자격증 명</dt><dd><h4>${escapeHTML(item.title)}</h4></dd></div>
+    return `<h4>${escapeHTML(item.title)}</h4>
+    <dl class="resume-certificate">
       <div><dt>발급기관</dt><dd>${escapeHTML(issuer || "—")}</dd></div>
       <div><dt>발급일</dt><dd>${escapeHTML(issuedDate || "—")}</dd></div>
       <div><dt>내용</dt><dd>${escapeHTML(item.description || "—")}</dd></div>
