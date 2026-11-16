@@ -34,9 +34,20 @@
     return match ? Number(match[1]) * 100 + Number(match[2] ?? match[3] ?? 0) : 0;
   };
 
-  const resumeItem = (item, icon) => `
+  const resumeSkillIcons = new Map([
+    ["unity엔진", [["assets/unity-logo.png", ""]]],
+    ["문서프로그램", [
+      ["assets/resume-excel.png", "Excel"],
+      ["assets/resume-figma.png", "Figma"],
+      ["assets/resume-powerpoint.png", "PowerPoint"]
+    ]]
+  ]);
+
+  const resumeItem = (item, icons) => `
     <h4>${escapeHTML(item.title)}</h4>
-    ${icon ? `<img class="resume-item-icon" src="${escapeHTML(icon)}" width="48" height="48" alt="">` : ""}
+    ${icons ? `<div class="resume-item-icons">${icons.map(([src, alt]) => `
+      <img class="resume-item-icon" src="${escapeHTML(src)}" width="48" height="48" alt="${escapeHTML(alt)}">
+    `).join("")}</div>` : ""}
     ${item.meta && item.meta !== "숙련도 또는 사용 기간" ? `<p class="resume-meta">${escapeHTML(item.meta)}</p>` : ""}
     ${item.description ? `<p class="resume-item-description">${escapeHTML(item.description)}</p>` : ""}`;
 
@@ -120,6 +131,8 @@
       .sort((a, b) => b.start - a.start);
     const resumeSideGroups = data.resume.groups.filter((group) => !isTimelineGroup(group))
       .sort((a, b) => Number(b.key === "skill") - Number(a.key === "skill"));
+    const documentSkill = window.DEFAULT_PORTFOLIO_DATA.resume.groups.find((group) => group.key === "skill")
+      ?.items.find((item) => item.title === "문서 프로그램");
 
   root.innerHTML = `
     <main id="main">
@@ -208,8 +221,14 @@
                 <h3>${escapeHTML(group.label)}</h3>
                 ${group.items.length ? `<ul class="resume-items">
                   ${group.items.map((item) => {
-                    const icon = group.key === "skill" && /^Unity\s*엔진$/i.test(item.title) ? "assets/unity-logo.png" : "";
-                    return `<li${icon ? ' class="resume-item-with-icon"' : ""}>${resumeItem(item, icon)}</li>`;
+                    if (group.key !== "skill") return `<li>${resumeItem(item)}</li>`;
+                    const isLegacyDocumentSkill = documentSkill && item.title === "오피스 ( 문서작업 )";
+                    const skill = isLegacyDocumentSkill ? { ...item, title: documentSkill.title } : item;
+                    if (isLegacyDocumentSkill && skill.description === "워드, ppt 등을 활용하여 기획 문서를 작성 및 활용하여 프로젝트를 진행, 완성 해본 경험이 존재합니다.") {
+                      skill.description = documentSkill.description;
+                    }
+                    const icons = resumeSkillIcons.get(String(skill.title ?? "").replace(/\s+/g, "").toLowerCase());
+                    return `<li${icons ? ' class="resume-item-with-icon"' : ""}>${resumeItem(skill, icons)}</li>`;
                   }).join("")}
                 </ul>` : '<p class="resume-empty">아직 등록된 항목이 없습니다.</p>'}
               </section>`).join("")}
